@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     //
+    public function indikators()
+    {
+        return $this->hasMany(Indikator::class);
+    }
+
 }

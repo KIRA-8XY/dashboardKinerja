@@ -21,4 +21,10 @@ class Indikator extends Model
         });
     }
 
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
+    }
+
+
 }
