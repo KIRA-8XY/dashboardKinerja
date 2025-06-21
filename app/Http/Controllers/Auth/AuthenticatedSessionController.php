@@ -7,11 +7,12 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Tampilkan halaman login.
      */
     public function create(): View
     {
@@ -19,7 +20,7 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Proses login dan redirect sesuai role.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -35,18 +36,18 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('pegawai.dashboard');
         }
 
+        // Fallback jika role tidak dikenal
         return redirect()->intended('/');
     }
 
     /**
-     * Destroy an authenticated session.
+     * Logout dan hapus session.
      */
-    public function destroy(LoginRequest $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');
