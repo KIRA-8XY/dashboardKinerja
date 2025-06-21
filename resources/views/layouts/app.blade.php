@@ -1,36 +1,72 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Kinerja</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        .sidebar {
+            width: 250px;
+            background-color: #1a1a2e;
+            color: white;
+            padding: 20px;
+        }
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        .sidebar h4 {
+            margin-bottom: 1.5rem;
+        }
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+        .sidebar a:hover {
+            background-color: #16213e;
+        }
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+        .content {
+            flex: 1;
+            padding: 30px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h4>Dashboard</h4>
+        @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin.dashboard') }}">Beranda Admin</a>
+            <a href="#">Manajemen Pegawai</a>
+            <a href="#">Manajemen Indikator</a>
+        @elseif(auth()->user()->role === 'pegawai')
+            <a href="{{ route('pegawai.dashboard') }}">Profil Kinerja</a>
+        @endif
+        <a href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Keluar
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </div>
+
+    <div class="content">
+        @yield('content')
+    </div>
+
+</body>
 </html>
