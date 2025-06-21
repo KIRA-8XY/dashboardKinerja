@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -22,28 +21,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        // Redirect berdasarkan role
         $user = Auth::user();
+
         if ($user->role === 'admin') {
-            return redirect()->route('dashboard'); // atau route admin lain
+            return redirect()->route('admin.dashboard');
         } elseif ($user->role === 'pegawai') {
-            return redirect()->route('profile.edit'); // atau route pegawai lain
+            return redirect()->route('pegawai.dashboard');
         }
 
-        // Default fallback
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended('/');
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(LoginRequest $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
