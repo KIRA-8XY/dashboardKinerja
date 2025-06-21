@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -9,7 +10,9 @@ class PegawaiController extends Controller
     //
     public function index()
     {
-        $pegawais = Pegawai::all();
-        return view('dashboard', compact('pegawais'));
+        $pegawai = Auth::user()->pegawai;
+        $indikators = $pegawai->indikators ?? [];
+
+        return view('pegawai.dashboard', compact('pegawai', 'indikators'));
     }
 }
