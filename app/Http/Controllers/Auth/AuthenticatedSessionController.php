@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -22,13 +21,22 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Redirect berdasarkan role
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard'); // atau route admin lain
+        } elseif ($user->role === 'pegawai') {
+            return redirect()->route('profile.edit'); // atau route pegawai lain
+        }
+
+        // Default fallback
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
