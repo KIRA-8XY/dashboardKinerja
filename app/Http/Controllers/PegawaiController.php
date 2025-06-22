@@ -4,13 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Pegawai;
+use App\Models\Indikator;
 
 class PegawaiController extends Controller
 {
-    //
     public function index()
     {
-        $pegawai = Auth::user()->pegawai;
+        $user = Auth::user();
+
+        // pastikan relasi ada
+        $pegawai = $user->pegawai;
+
+        // jika pegawai tidak ditemukan, redirect dengan error
+        if (!$pegawai) {
+            return redirect()->back()->with('error', 'Data pegawai tidak ditemukan untuk user ini.');
+        }
+
         $indikators = $pegawai->indikators ?? [];
 
         return view('pegawai.dashboard', compact('pegawai', 'indikators'));

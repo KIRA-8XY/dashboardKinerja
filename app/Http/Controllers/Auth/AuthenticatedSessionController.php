@@ -25,7 +25,6 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
         $user = Auth::user();
@@ -36,8 +35,9 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('pegawai.dashboard');
         }
 
-        // Fallback jika role tidak dikenal
-        return redirect()->intended('/');
+        // If role not recognized, log out and go back to login
+        Auth::logout();
+        return redirect('/login')->withErrors(['email' => 'Role tidak dikenali.']);
     }
 
     /**

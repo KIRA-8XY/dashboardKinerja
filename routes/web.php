@@ -32,7 +32,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // ⬇️ Route untuk pegawai
 Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/pegawai/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
-    // Tambahkan route pegawai lainnya di sini
 });
 
 // Route auth default dari Laravel Breeze
