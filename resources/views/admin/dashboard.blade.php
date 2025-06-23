@@ -3,7 +3,7 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/dashboard-admin.css') }}">
-<div class="admin-header">
+<div class="admin-header admin-header-rounded">
     <span class="title">Dashboard Admin</span>
 </div>
 
@@ -12,7 +12,6 @@
         $totalKpi = $pegawai->indikators->sum(fn($i) => $i->kpi_score['nilai']);
         $avgKpi = count($pegawai->indikators) > 0 ? round($totalKpi / count($pegawai->indikators), 1) : 0;
 
-        // Tentukan warna badge rata-rata KPI pegawai
         if ($avgKpi >= 8) {
             $avgKpiColor = 'kpi-badge-pegawai bg-success';
         } elseif ($avgKpi >= 5) {
@@ -22,10 +21,10 @@
         }
     @endphp
     <div class="pegawai-card">
-        <div class="pegawai-card-header">
+        <div class="pegawai-card-header pegawai-card-header-colored">
             <div class="info">
                 <span class="nama">{{ $pegawai->nama }}</span>
-                <span class="jabatan">{{ $pegawai->jabatan ?? 'Pegawai' }}</span>
+                <span class="jabatan">Pegawai</span>
             </div>
             <div class="{{ $avgKpiColor }}">
                 {{ $avgKpi }}
@@ -35,25 +34,25 @@
             <table class="pegawai-table">
                 <thead>
                     <tr>
-                        <th style="width:40px;">NO</th>
-                        <th>INDIKATOR</th>
-                        <th style="width:110px;">TARGET</th>
-                        <th style="width:110px;">REALISASI</th>
-                        <th style="width:110px;">% REALISASI</th>
-                        <th style="width:70px;">KPI</th>
+                        <th class="th-center" style="width:40px;">NO</th>
+                        <th class="th-left">INDIKATOR</th>
+                        <th class="th-right" style="width:110px;">TARGET</th>
+                        <th class="th-right" style="width:110px;">REALISASI</th>
+                        <th class="th-right" style="width:110px;">% REALISASI</th>
+                        <th class="th-center" style="width:70px;">KPI</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($pegawai->indikators as $i => $indikator)
                     <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td style="text-align:left;">{{ $indikator->nama_indikator }}</td>
-                        <td>{{ number_format($indikator->target) }}</td>
-                        <td>{{ number_format($indikator->realisasi) }}</td>
-                        <td>
+                        <td class="td-center">{{ $i + 1 }}</td>
+                        <td class="td-left">{{ $indikator->nama_indikator }}</td>
+                        <td class="td-right">{{ number_format($indikator->target) }}</td>
+                        <td class="td-right">{{ number_format($indikator->realisasi) }}</td>
+                        <td class="td-right">
                             {{ number_format($indikator->persen_realisasi, 2) }}%
                         </td>
-                        <td>
+                        <td class="td-center">
                             <span class="kpi-badge
                                 @if($indikator->kpi_score['warna'] == 'bg-success') bg-success
                                 @elseif($indikator->kpi_score['warna'] == 'bg-warning') bg-warning
@@ -76,7 +75,75 @@
 @endforeach
 
 <style>
-/* Tambahan style untuk badge KPI agar lebih terlihat */
+.admin-header-rounded {
+    border-radius: 28px !important;
+}
+.admin-header {
+    border-radius: 28px !important;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(35,41,70,0.06);
+    margin-bottom: 32px;
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    padding: 0 54px;
+}
+.admin-header .title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #232946;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.pegawai-card {
+    border-radius: 20px;
+    border: 2px solid #e5eaf2;
+    background: #fff;
+    margin-bottom: 32px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(35,41,70,0.04);
+}
+.pegawai-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px 18px 36px;
+    background: #fff;
+    border-bottom: none;
+}
+.pegawai-card-header-colored {
+    background: #f5f8ff !important;
+}
+.pegawai-card-header .info .nama {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #2563eb;
+}
+.pegawai-card-header .info .jabatan {
+    font-size: 1.05rem;
+    color: #8b94a9;
+    font-weight: 500;
+    margin-top: 2px;
+    display: block;
+}
+.kpi-badge-pegawai {
+    min-width: 72px;
+    padding: 14px 0;
+    font-size: 1.45rem;
+    border-radius: 14px !important;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(35,41,70,0.04);
+    border: 2px solid #e3e8ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
 .kpi-badge {
     display: inline-block;
     min-width: 36px;
@@ -100,16 +167,35 @@
     background: #ef4444 !important;
     color: #fff !important;
 }
-/* Badge rata-rata KPI pegawai */
-.kpi-badge-pegawai {
-    min-width: 48px;
-    padding: 10px 0;
-    font-size: 1.2rem;
-    border-radius: 8px;
+.pegawai-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1.08rem;
+    margin-bottom: 0;
+}
+.pegawai-table th, .pegawai-table td {
+    padding: 16px 10px;
+    font-size: 1.08rem;
+    vertical-align: middle;
+}
+.pegawai-table thead th {
+    background: #f1f5fa;
     font-weight: 700;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(35,41,70,0.04);
-    border: 1.5px solid #e3e8ee;
+    color: #232946;
+    border-bottom: 2px solid #e3e8ee;
+    letter-spacing: 0.5px;
+    font-size: 1.13rem;
+    vertical-align: middle;
+}
+.th-center { text-align: center !important; }
+.th-left { text-align: left !important; }
+.th-right { text-align: right !important; }
+.td-center { text-align: center !important; }
+.td-left { text-align: left !important; }
+.td-right { text-align: right !important; }
+.pegawai-table tr:not(:last-child) td {
+    border-bottom: 1px solid #f1f1f1;
 }
 </style>
 @endsection
