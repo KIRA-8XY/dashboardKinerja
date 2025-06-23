@@ -6,6 +6,14 @@
     <title>Dashboard Kinerja</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    @if(Auth::check())
+        <script>
+            window.location.href = "{{ auth()->user()->role === 'admin' ? route('admin.dashboard') : route('pegawai.dashboard') }}";
+        </script>
+    @endif
 </head>
 <body>
     <div class="welcome-card">
