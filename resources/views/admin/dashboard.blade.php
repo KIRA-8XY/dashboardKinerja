@@ -118,7 +118,7 @@
     border-bottom: none;
 }
 .pegawai-card-header-minimal {
-    background: #232946 !important; /* Warna gelap, modern, dan mencolok */
+    background: #111827 !important; /* Hitam modern */
     border-bottom: 1.5px solid #e3e8ee;
 }
 .pegawai-card-header-minimal .nama {
