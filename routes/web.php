@@ -34,5 +34,10 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/pegawai/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
 });
 
+Route::middleware(['auth', 'role:pegawai'])->group(function () {
+    Route::get('/pegawai/kinerja', [PegawaiController::class, 'kinerjaPerBulan'])->name('pegawai.kinerja');
+});
+
+
 // Route auth default dari Laravel Breeze
 require __DIR__.'/auth.php';
