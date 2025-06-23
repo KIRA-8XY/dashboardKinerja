@@ -199,6 +199,13 @@ body {
     background: #ef4444 !important;
     color: #fff !important;
 }
+/* Corner rounding for table header */
+.kinerja-table thead th:first-child {
+    border-top-left-radius: 16px;
+}
+.kinerja-table thead th:last-child {
+    border-top-right-radius: 16px;
+}
 @media (max-width: 900px) {
     .container-fluid { max-width: 100vw !important; }
     .kinerja-header, .kinerja-table-card { padding: 10px 4px; }

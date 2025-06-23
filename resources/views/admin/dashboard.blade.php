@@ -21,7 +21,7 @@
         }
     @endphp
     <div class="pegawai-card">
-        <div class="pegawai-card-header pegawai-card-header-colored">
+        <div class="pegawai-card-header pegawai-card-header-minimal">
             <div class="info">
                 <span class="nama">{{ $pegawai->nama }}</span>
                 <span class="jabatan">Pegawai</span>
@@ -34,12 +34,17 @@
             <table class="pegawai-table">
                 <thead>
                     <tr>
-                        <th class="th-center" style="width:40px;">NO</th>
-                        <th class="th-left">INDIKATOR</th>
-                        <th class="th-right" style="width:110px;">TARGET</th>
-                        <th class="th-right" style="width:110px;">REALISASI</th>
-                        <th class="th-right" style="width:110px;">% REALISASI</th>
-                        <th class="th-center" style="width:70px;">KPI</th>
+                        <th class="th-center" style="width:40px; vertical-align:middle;">NO</th>
+                        <th class="th-left" style="vertical-align:middle;">INDIKATOR</th>
+                        <th class="th-right" style="width:110px; vertical-align:middle;">TARGET</th>
+                        <th class="th-right" style="width:110px; vertical-align:middle;">REALISASI</th>
+                        <th class="th-right" style="width:110px; vertical-align:middle;">
+                            <div class="header-multiline">
+                                <span>%</span>
+                                <span>REALISASI</span>
+                            </div>
+                        </th>
+                        <th class="th-center" style="width:70px; vertical-align:middle;">KPI</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,24 +115,19 @@
     align-items: center;
     justify-content: space-between;
     padding: 28px 36px 18px 36px;
-    background: #fff;
     border-bottom: none;
 }
-.pegawai-card-header-colored {
-    background: #f5f8ff !important;
+.pegawai-card-header-minimal {
+    background: #232946 !important; /* Warna gelap, modern, dan mencolok */
+    border-bottom: 1.5px solid #e3e8ee;
 }
-.pegawai-card-header .info .nama {
-    font-size: 1.25rem;
+.pegawai-card-header-minimal .nama {
+    color: #fff;
     font-weight: 700;
     letter-spacing: 0.2px;
-    color: #2563eb;
 }
-.pegawai-card-header .info .jabatan {
-    font-size: 1.05rem;
-    color: #8b94a9;
-    font-weight: 500;
-    margin-top: 2px;
-    display: block;
+.pegawai-card-header-minimal .jabatan {
+    color: #cbd5e1;
 }
 .kpi-badge-pegawai {
     min-width: 72px;
@@ -143,6 +143,7 @@
     justify-content: center;
     padding-left: 24px;
     padding-right: 24px;
+    background: #fff;
 }
 .kpi-badge {
     display: inline-block;
@@ -156,11 +157,11 @@
     border: none;
 }
 .bg-success {
-    background: #22c55e !important;
+    background: #10b981 !important;
     color: #fff !important;
 }
 .bg-warning {
-    background: #facc15 !important;
+    background: #fbbf24 !important;
     color: #fff !important;
 }
 .bg-danger {
@@ -177,16 +178,24 @@
 .pegawai-table th, .pegawai-table td {
     padding: 16px 10px;
     font-size: 1.08rem;
-    vertical-align: middle;
 }
 .pegawai-table thead th {
-    background: #f1f5fa;
-    font-weight: 700;
+    background: #eaf1fb;
     color: #232946;
-    border-bottom: 2px solid #e3e8ee;
+    font-weight: 700;
+    border-bottom: 2px solid #d1e0f7;
     letter-spacing: 0.5px;
     font-size: 1.13rem;
     vertical-align: middle;
+    height: 56px;
+}
+.header-multiline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+    justify-content: center;
+    height: 100%;
 }
 .th-center { text-align: center !important; }
 .th-left { text-align: left !important; }
@@ -196,6 +205,12 @@
 .td-right { text-align: right !important; }
 .pegawai-table tr:not(:last-child) td {
     border-bottom: 1px solid #f1f1f1;
+}
+.pegawai-table td {
+    color: #232946;
+    background: #fff;
+    vertical-align: middle;
+    height: 54px;
 }
 </style>
 @endsection
