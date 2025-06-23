@@ -10,28 +10,33 @@ class IndikatorSeeder extends Seeder
 {
     public function run()
     {
-        $pegawai = Pegawai::first();
-
-        $indikatorList = [
-            ['TK AKTIF PU', 8453, 6730],
-            ['TK AKTIF BPU', 25764, 6226],
-            ['PENERIMAAN IURAN PU', 4295502360, 2505185335],
-            ['PENERIMAAN IURAN BPU', 3251037389, 443391000],
-            ['PK/BU IBB', 75, 49.25],
-            ['PK/BU ITW', 85, 35.07],
-            ['TINGKAT RETENSI PESERTA', 100, 63],
-            ['PENINGKATAN KUALITAS DATA', 90, 0],
-            ['PENINGKATAN RELATIONSHIP ENGAGEMENT', 20, 0],
-            ['PRODUKTIVITAS KEAGENAN', 20, 54.82],
+        $indikatorNames = [
+            'TK AKTIF PU',
+            'TK AKTIF BPU',
+            'PENERIMAAN IURAN PU',
+            'PENERIMAAN IURAN BPU',
+            'PK/BU IBB',
+            'PK/BU ITW',
+            'TINGKAT RETENSI PESERTA',
+            'PENINGKATAN KUALITAS DATA',
+            'PENINGKATAN RELATIONSHIP ENGAGEMENT',
+            'PRODUKTIVITAS KEAGENAN',
         ];
 
-        foreach ($indikatorList as $ind) {
-            Indikator::create([
-                'pegawai_id' => $pegawai->id,
-                'nama_indikator' => $ind[0],
-                'target' => $ind[1],
-                'realisasi' => $ind[2]
-            ]);
+        foreach (Pegawai::all() as $pegawai) {
+            foreach ($indikatorNames as $idx => $nama) {
+                // Buat target dan realisasi berbeda untuk tiap pegawai
+                $baseTarget = 1000 * ($idx + 1) + ($pegawai->id * 100);
+                $target = $baseTarget + rand(0, 500);
+                $realisasi = rand(intval($target * 0.3), intval($target * 1.2));
+
+                Indikator::create([
+                    'pegawai_id' => $pegawai->id,
+                    'nama_indikator' => $nama,
+                    'target' => $target,
+                    'realisasi' => $realisasi,
+                ]);
+            }
         }
     }
 }

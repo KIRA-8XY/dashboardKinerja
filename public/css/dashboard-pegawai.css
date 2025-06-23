@@ -1,0 +1,96 @@
+body {
+    background: #f5f7fa;
+}
+.kinerja-header {
+    background: #fff;
+    color: #232946;
+    border-radius: 18px 18px 0 0;
+    padding: 28px 32px 18px 32px;
+    position: relative;
+    box-shadow: 0 2px 16px rgba(35,41,70,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: none;
+}
+.kinerja-header .info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.kinerja-header .nama {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #232946;
+}
+.kinerja-header .jabatan {
+    font-size: 1rem;
+    opacity: 0.8;
+    font-weight: 500;
+    color: #6e7380;
+}
+.kinerja-header .nilai-kpi {
+    background: #f4f6fb;
+    color: #232946;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(35,41,70,0.04);
+    min-width: 60px;
+    text-align: center;
+    border: 1.5px solid #e3e8ee;
+}
+.kinerja-table-card {
+    background: #fff;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 2px 16px rgba(35,41,70,0.04);
+    margin-top: -2px;
+    overflow: hidden;
+    border: none;
+}
+.kinerja-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.kinerja-table th, .kinerja-table td {
+    padding: 13px 8px;
+    text-align: center;
+    font-size: 1rem;
+}
+.kinerja-table th {
+    background: #f4f6fb;
+    font-weight: 600;
+    color: #232946;
+    border-bottom: 2px solid #e3e8ee;
+    letter-spacing: 0.5px;
+}
+.kinerja-table tr:not(:last-child) td {
+    border-bottom: 1px solid #f1f1f1;
+}
+.kinerja-table td {
+    color: #232946;
+    background: #fff;
+}
+.kpi-badge {
+    display: inline-block;
+    min-width: 40px;
+    padding: 7px 0;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+.bg-success { background: #eafbea; color: #219150; }
+.bg-warning { background: #fff8e1; color: #b8860b; }
+.bg-danger { background: #ffeaea; color: #e74c3c; }
+@media (max-width: 700px) {
+    .kinerja-header, .kinerja-table-card { padding: 10px 4px; }
+    .kinerja-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .kinerja-header .nilai-kpi { align-self: flex-end; }
+    .kinerja-table th, .kinerja-table td { font-size: 0.95rem; padding: 8px 4px; }
+}
