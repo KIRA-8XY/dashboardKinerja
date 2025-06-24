@@ -15,8 +15,19 @@ class IndikatorController extends Controller
     public function index(Request $request)
     {
         $mode = $request->query('mode', 'default');
+        $search = $request->query('q');
 
         $query = Indikator::with('pegawai');
+
+        // Global search
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_indikator', 'like', "%{$search}%")
+                    ->orWhereHas('pegawai', function ($p) use ($search) {
+                        $p->where('nama', 'like', "%{$search}%");
+                    });
+            });
+        }
 
         // Hanya devadmin yang bisa melihat indikator milik pegawai id 99
         if (auth()->user()->email !== 'devadmin@example.com') {
@@ -48,13 +59,13 @@ class IndikatorController extends Controller
                 break;
         }
 
-        $indikators = $query->get();
+        $indikators = $query->paginate(15)->withQueryString();
 
         $grouped = null;
         if ($mode === 'pegawai') {
-            $grouped = $indikators->groupBy(fn($item) => $item->pegawai->nama ?? 'Tidak ada Pegawai');
+            $grouped = $indikators->getCollection()->groupBy(fn($item) => $item->pegawai->nama ?? 'Tidak ada Pegawai');
         } elseif ($mode === 'indikator') {
-            $grouped = $indikators->groupBy('nama_indikator');
+            $grouped = $indikators->getCollection()->groupBy('nama_indikator');
         }
 
         return view('admin.indikator.index', [

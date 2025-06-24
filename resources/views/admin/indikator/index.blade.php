@@ -5,10 +5,16 @@
 <div class="max-w-7xl mx-auto px-4">
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-bold text-gray-800">Daftar Indikator</h2>
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center gap-4">
             <a href="{{ route('admin.indikator.create') }}" class="px-5 py-2 rounded bg-pink-600 text-white font-semibold shadow hover:bg-pink-700 transition whitespace-nowrap">Tambah Indikator</a>
-            <span class="text-sm text-gray-600">Tampilan:</span>
+            <form method="GET" class="flex items-center gap-2">
+                <input type="hidden" name="mode" value="{{ $mode }}">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari indikator / pegawai" class="w-44 md:w-64 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-sm" />
+                <button type="submit" class="hidden">Cari</button>
+            </form>
+            <span class="text-sm text-gray-600 whitespace-nowrap">Tampilan:</span>
             <form method="GET">
+                <input type="hidden" name="q" value="{{ request('q') }}">
                 <div class="relative">
                     <select name="mode" onchange="this.form.submit()" class="appearance-none bg-white border border-gray-300 text-sm rounded-lg pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-sm">
                         <option value="default" {{ $mode==='default' ? 'selected' : '' }}>Default</option>
@@ -64,7 +70,7 @@
                 @else
                     @foreach($indikators as $i => $indikator)
                     <tr class="even:bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-2 text-gray-700">{{ $i+1 }}</td>
+                        <td class="px-4 py-2 text-gray-700">{{ $indikators->firstItem() + $i }}</td>
                         <td class="px-4 py-2 text-gray-700">{{ $indikator->pegawai->nama ?? '-' }}</td>
                         <td class="px-4 py-2 text-gray-700">{{ $indikator->nama_indikator }}</td>
                         <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->target) }}</td>
@@ -82,6 +88,7 @@
 
             </tbody>
         </table>
+            <div class="mt-4">{{ $indikators->links() }}</div>
     </div>
 </div>
 @endsection
