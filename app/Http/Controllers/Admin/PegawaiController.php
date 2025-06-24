@@ -90,7 +90,7 @@ class PegawaiController extends Controller
             'realisasi' => 'nullable|integer',
         ]);
 
-        $pegawai->update($request->all());
+        $pegawai->update($request->only(['nama', 'jabatan', 'target', 'realisasi']));
 
         return redirect()->route('admin.pegawai.index')->with('success', 'Pegawai berhasil diupdate');
     }
