@@ -2,33 +2,35 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Tambah Indikator</h2>
-    <form action="{{ route('admin.indikator.store') }}" method="POST">
+<div class="max-w-xl mx-auto">
+    <h2 class="text-xl font-bold mb-6 text-gray-800">Tambah Indikator</h2>
+    <form action="{{ route('admin.indikator.store') }}" method="POST" class="space-y-4 bg-white rounded-xl shadow p-6">
         @csrf
-        <div class="mb-3">
-            <label>Pegawai</label>
-            <select name="pegawai_id" class="form-control" required>
+        <div>
+            <label class="block mb-1 font-semibold">Pegawai</label>
+            <select name="pegawai_id" class="form-control w-full rounded border-gray-300" required>
                 <option value="">Pilih Pegawai</option>
                 @foreach($pegawais as $pegawai)
                     <option value="{{ $pegawai->id }}">{{ $pegawai->nama }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
-            <label>Nama Indikator</label>
-            <input type="text" name="nama_indikator" class="form-control" required>
+        <div>
+            <label class="block mb-1 font-semibold">Nama Indikator</label>
+            <input type="text" name="nama_indikator" class="form-control w-full rounded border-gray-300" required>
         </div>
-        <div class="mb-3">
-            <label>Target</label>
-            <input type="number" name="target" class="form-control" required>
+        <div>
+            <label class="block mb-1 font-semibold">Target</label>
+            <input type="number" name="target" class="form-control w-full rounded border-gray-300" required>
         </div>
-        <div class="mb-3">
-            <label>Realisasi</label>
-            <input type="number" name="realisasi" class="form-control" required>
+        <div>
+            <label class="block mb-1 font-semibold">Realisasi</label>
+            <input type="number" name="realisasi" class="form-control w-full rounded border-gray-300" required>
         </div>
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="{{ route('admin.indikator.index') }}" class="btn btn-secondary">Batal</a>
+        <div class="flex gap-2">
+            <button type="submit" class="px-5 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">Simpan</button>
+            <a href="{{ route('admin.indikator.index') }}" class="px-5 py-2 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition">Batal</a>
+        </div>
     </form>
 </div>
 @endsection

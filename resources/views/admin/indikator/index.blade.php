@@ -2,38 +2,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Daftar Indikator</h2>
-    <a href="{{ route('admin.indikator.create') }}" class="btn btn-primary mb-3">Tambah Indikator</a>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>NO</th>
-                <th>Pegawai</th>
-                <th>Nama Indikator</th>
-                <th>Target</th>
-                <th>Realisasi</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($indikators as $i => $indikator)
-            <tr>
-                <td>{{ $i+1 }}</td>
-                <td>{{ $indikator->pegawai->nama ?? '-' }}</td>
-                <td>{{ $indikator->nama_indikator }}</td>
-                <td>{{ $indikator->target }}</td>
-                <td>{{ $indikator->realisasi }}</td>
-                <td>
-                    <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div>
+    <h2 class="text-xl font-bold mb-6 text-gray-800">Daftar Indikator</h2>
+    <a href="{{ route('admin.indikator.create') }}" class="mb-4 inline-block px-5 py-2 rounded bg-pink-600 text-white font-semibold shadow hover:bg-pink-700 transition">Tambah Indikator</a>
+    <div class="bg-white rounded-xl shadow p-6">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">No</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Pegawai</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nama Indikator</th>
+                    <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase">Target</th>
+                    <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase">Realisasi</th>
+                    <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-100">
+                @foreach($indikators as $i => $indikator)
+                <tr>
+                    <td class="px-4 py-2 text-gray-700">{{ $i+1 }}</td>
+                    <td class="px-4 py-2 text-gray-700">{{ $indikator->pegawai->nama ?? '-' }}</td>
+                    <td class="px-4 py-2 text-gray-700">{{ $indikator->nama_indikator }}</td>
+                    <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->target) }}</td>
+                    <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->realisasi) }}</td>
+                    <td class="px-4 py-2 text-center">
+                        <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="inline-block px-3 py-1 rounded bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition">Edit</a>
+                        <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" class="inline">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="inline-block px-3 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-600 transition" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

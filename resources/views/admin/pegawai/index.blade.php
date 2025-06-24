@@ -2,38 +2,36 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Daftar Pegawai</h2>
-    <a href="{{ route('admin.pegawai.create') }}" class="btn btn-primary mb-3">Tambah Pegawai</a>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>NO</th>
-                <th>Nama</th>
-                <th>Jabatan</th>
-                <th>Target</th>
-                <th>Realisasi</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($pegawais as $i => $pegawai)
-            <tr>
-                <td>{{ $i+1 }}</td>
-                <td>{{ $pegawai->nama }}</td>
-                <td>{{ $pegawai->jabatan }}</td>
-                <td>{{ $pegawai->target }}</td>
-                <td>{{ $pegawai->realisasi }}</td>
-                <td>
-                    <a href="{{ route('admin.pegawai.edit', $pegawai->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="{{ route('admin.pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div>
+    <h2 class="text-xl font-bold mb-6 text-gray-800">Daftar Pegawai</h2>
+    <a href="{{ route('admin.pegawai.create') }}" class="mb-4 inline-block px-5 py-2 rounded bg-pink-600 text-white font-semibold shadow hover:bg-pink-700 transition">Tambah Pegawai</a>
+    <div class="bg-white rounded-xl shadow p-6">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">No</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nama</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Jabatan</th>
+                    <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-100">
+                @foreach($pegawais as $i => $pegawai)
+                <tr>
+                    <td class="px-4 py-2 text-gray-700">{{ $i+1 }}</td>
+                    <td class="px-4 py-2 text-gray-700">{{ $pegawai->nama }}</td>
+                    <td class="px-4 py-2 text-gray-700">{{ $pegawai->jabatan }}</td>
+                    <td class="px-4 py-2 text-center">
+                        <a href="{{ route('admin.pegawai.edit', $pegawai->id) }}" class="inline-block px-3 py-1 rounded bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition">Edit</a>
+                        <form action="{{ route('admin.pegawai.destroy', $pegawai->id) }}" method="POST" class="inline">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="inline-block px-3 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-600 transition" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

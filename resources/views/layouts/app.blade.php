@@ -3,72 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Kinerja</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts & Tailwind CSS CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #1a1a2e;
-            color: white;
-            padding: 20px;
-        }
-
-        .sidebar h4 {
-            margin-bottom: 1.5rem;
-        }
-
-        .sidebar a {
-            color: white;
-            display: block;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-
-        .sidebar a:hover {
-            background-color: #16213e;
-        }
-
-        .content {
-            flex: 1;
-            padding: 30px;
-            background-color: #f8f9fa;
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
-
-    <div class="sidebar">
-        <h4>Dashboard</h4>
-        @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin.dashboard') }}">Beranda Admin</a>
-            <a href="{{ route('admin.pegawai.index') }}">Manajemen Pegawai</a>
-            <a href="{{ route('admin.indikator.index') }}">Manajemen Indikator</a>
-        @elseif(auth()->user()->role === 'pegawai')
-            <a href="{{ route('pegawai.dashboard') }}">Profil Kinerja</a>
-            <a href="{{ route('pegawai.indikator.index') }}">Indikator Saya</a>
-            <a href="{{ route('pegawai.riwayat-kinerja.index') }}">Riwayat Kinerja</a>
-        @endif
-        <a href="{{ route('logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Keluar
-        </a>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-    </div>
-
-    <div class="content">
+<body class="bg-gray-100 min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r flex flex-col min-h-screen">
+        <div class="px-6 py-6 border-b">
+            <span class="font-bold text-xl text-pink-700">Dashboard Kinerja</span>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700 font-semibold">Dashboard</a>
+                <a href="{{ route('admin.pegawai.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Manajemen Pegawai</a>
+                <a href="{{ route('admin.indikator.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Manajemen Indikator</a>
+            @elseif(auth()->user()->role === 'pegawai')
+                <a href="{{ route('pegawai.dashboard') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700 font-semibold">Profil Kinerja</a>
+                <a href="{{ route('pegawai.indikator.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Indikator Saya</a>
+                <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Riwayat Kinerja</a>
+            @endif
+        </nav>
+        <div class="px-4 py-4 border-t">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="w-full px-4 py-2 rounded bg-pink-600 text-white hover:bg-pink-700 font-semibold">Keluar</button>
+            </form>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
         @yield('content')
-    </div>
-
+    </main>
 </body>
 </html>
