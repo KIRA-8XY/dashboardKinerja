@@ -10,6 +10,19 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         /* Cyan theme overrides for existing pink utility classes */
+        /* ---------- Table polish ---------- */
+        table thead th{background-color:#f8fafc;font-weight:600}
+        table tbody tr:hover{background-color:#f1f5f9}
+        /* Remove duplicate card wrappers padding fix */
+        .card-wrapper{background:#fff;border-radius:1rem;box-shadow:0 1px 2px rgba(0,0,0,0.05);padding:1.5rem}
+        /* Utility button classes for future use */
+        .btn{display:inline-block;border-radius:9999px;padding:0.375rem 1rem;font-weight:600;transition:background-color .15s}
+        .btn-primary{background-color:#0891b2;color:#fff}
+        .btn-primary:hover{background-color:#0e7490}
+        .btn-danger{background-color:transparent;color:#dc2626;border:1px solid #ef4444;font-size:0.875rem;padding:0.25rem 0.75rem}
+        .btn-danger:hover{background-color:#ef4444;color:#fff}
+        .btn-warning{background-color:transparent;color:#ca8a04;border:1px solid #facc15;font-size:0.875rem;padding:0.25rem 0.75rem}
+        .btn-warning:hover{background-color:#facc15;color:#000}
         .bg-pink-600{background-color:#0891b2!important}
         .bg-pink-700{background-color:#0e7490!important}
         .hover\:bg-pink-700:hover{background-color:#0e7490!important}

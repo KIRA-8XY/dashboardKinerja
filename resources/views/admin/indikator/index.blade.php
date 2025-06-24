@@ -6,12 +6,12 @@
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-bold text-gray-800">Daftar Indikator</h2>
         <div class="flex flex-wrap items-center gap-4">
-            <a href="{{ route('admin.indikator.create') }}" class="px-5 py-2 rounded bg-pink-600 text-white font-semibold shadow hover:bg-pink-700 transition whitespace-nowrap">Tambah Indikator</a>
+            <a href="{{ route('admin.indikator.create') }}" class="btn btn-primary shadow whitespace-nowrap">Tambah Indikator</a>
             <form method="GET" class="flex items-center gap-2">
                 <input type="hidden" name="per" value="{{ $perPage }}">
                 <input type="hidden" name="mode" value="{{ $mode }}">
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari indikator / pegawai" class="w-44 md:w-64 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-sm" />
-                <button type="submit" class="px-3 py-2 rounded bg-pink-600 text-white hover:bg-pink-700 focus:ring-2 focus:ring-pink-400" aria-label="Cari">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari indikator / pegawai" class="w-44 md:w-64 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm" />
+                <button type="submit" class="btn btn-primary focus:ring-2 focus:ring-cyan-400" aria-label="Cari">
                     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 9 7.5 7.5 0 0116.65 16.65z" />
                     </svg>
@@ -22,7 +22,7 @@
                 <input type="hidden" name="q" value="{{ request('q') }}">
                 <input type="hidden" name="per" value="{{ $perPage }}">
                 <div class="relative">
-                    <select name="mode" onchange="this.form.submit()" class="appearance-none bg-white border border-gray-300 text-sm rounded-lg pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-sm">
+                    <select name="mode" onchange="this.form.submit()" class="appearance-none bg-white border border-gray-300 text-sm rounded-lg pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm">
                         <option value="default" {{ $mode==='default' ? 'selected' : '' }}>Default</option>
                         <option value="pegawai" {{ $mode==='pegawai' ? 'selected' : '' }}>Group by Pegawai</option>
                         <option value="indikator" {{ $mode==='indikator' ? 'selected' : '' }}>Group by Indikator</option>
@@ -40,7 +40,7 @@
             <form method="GET" class="relative">
                 <input type="hidden" name="mode" value="{{ $mode }}">
                 <input type="hidden" name="q" value="{{ request('q') }}">
-                <select name="per" onchange="this.form.submit()" class="appearance-none bg-white border border-gray-300 text-sm rounded-lg pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-sm">
+                <select name="per" onchange="this.form.submit()" class="appearance-none bg-white border border-gray-300 text-sm rounded-lg pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm">
                     @foreach([10,15,25,50,100] as $size)
                         <option value="{{ $size }}" {{ $perPage==$size ? 'selected' : '' }}>{{ $size }} / halaman</option>
                     @endforeach
@@ -51,7 +51,7 @@
             </form>
         </div>
     </div>
-        <div class="bg-white rounded-xl shadow p-6 overflow-x-auto ring-1 ring-gray-200">
+        <div class="card-wrapper overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="sticky top-0 bg-white">
                 <tr>
@@ -66,8 +66,8 @@
             <tbody class="bg-white divide-y divide-gray-100">
                 @if($grouped)
                     @foreach($grouped as $groupKey => $rows)
-                        <tr class="bg-pink-50">
-                            <td colspan="6" class="px-4 py-2 font-semibold text-pink-700">{{ $groupKey }}</td>
+                        <tr class="bg-cyan-50">
+                            <td colspan="6" class="px-4 py-2 font-semibold text-cyan-700">{{ $groupKey }}</td>
                         </tr>
                         @foreach($rows as $indikator)
                             <tr class="even:bg-gray-50 hover:bg-gray-100">
@@ -77,10 +77,10 @@
                                 <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->target) }}</td>
                                 <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->realisasi) }}</td>
                                 <td class="px-4 py-2 text-center">
-                                    <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="inline-block px-3 py-1 rounded bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition">Edit</a>
+                                    <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="btn btn-warning">Edit</a>
                                     <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" class="inline delete-form">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="inline-block px-3 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-600 transition">Hapus</button>
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -95,10 +95,10 @@
                         <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->target) }}</td>
                         <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->realisasi) }}</td>
                         <td class="px-4 py-2 text-center">
-                            <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="inline-block px-3 py-1 rounded bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition">Edit</a>
+                            <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" class="inline delete-form">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="inline-block px-3 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-600 transition">Hapus</button>
+                                <button type="submit" class="btn btn-danger">Hapus</button>
                             </form>
                         </td>
                     </tr>
