@@ -9,6 +9,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
+        /* Cyan theme overrides for existing pink utility classes */
+        .bg-pink-600{background-color:#0891b2!important}
+        .bg-pink-700{background-color:#0e7490!important}
+        .hover\:bg-pink-700:hover{background-color:#0e7490!important}
+        .hover\:bg-pink-600:hover{background-color:#0891b2!important}
+        .text-pink-700{color:#0e7490!important}
+        .text-pink-600{color:#0891b2!important}
+        .bg-pink-100{background-color:#cffafe!important;color:#0e7490!important}
+        .bg-pink-50{background-color:#ecfeff!important}
+        .hover\:bg-pink-50:hover{background-color:#ecfeff!important}
+        .hover\:bg-pink-100:hover{background-color:#cffafe!important}
+        .focus\:ring-pink-400:focus{box-shadow:0 0 0 2px #22d3ee!important}
+        .focus\:border-pink-400:focus{border-color:#22d3ee!important}
+        .ring-pink-400{--tw-ring-color:#22d3ee!important}
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex">
