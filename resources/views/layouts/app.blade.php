@@ -5,10 +5,21 @@
     <title>Dashboard Kinerja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts & Tailwind CSS CDN -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                    },
+                },
+            }
+        }
+    </script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Manrope', sans-serif; }
         /* Cyan theme overrides for existing pink utility classes */
         /* ---------- Table polish ---------- */
         table thead th{background-color:#f8fafc;font-weight:600}

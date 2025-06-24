@@ -5,9 +5,9 @@
 <div class="max-w-5xl mx-auto">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Riwayat Kinerja</h1>
     <div class="mb-6">
-        <a href="{{ route('pegawai.riwayat-kinerja.create') }}" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">+ Tambah Riwayat</a>
+        <a href="{{ route('pegawai.riwayat-kinerja.create') }}" class="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-2 px-4 rounded">+ Tambah Riwayat</a>
     </div>
-    <div class="bg-white rounded-lg shadow overflow-x-auto">
+    <div class="card-wrapper overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 text-left">
         <thead>
             <tr class="hover:bg-gray-50">

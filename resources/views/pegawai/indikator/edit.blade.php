@@ -2,23 +2,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-xl mx-auto bg-white rounded-lg shadow p-6">
+<div class="max-w-xl mx-auto card-wrapper">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit Indikator</h1>
     <form action="{{ route('pegawai.indikator.update', $indikator->id) }}" method="POST">
         @csrf @method('PUT')
         <div class="mb-4">
             <label>Nama Indikator</label>
-            <input type="text" name="nama_indikator" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400" value="{{ $indikator->nama_indikator }}" required>
+            <input type="text" name="nama_indikator" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" value="{{ $indikator->nama_indikator }}" required>
         </div>
         <div class="mb-4">
             <label>Target</label>
-            <input type="number" name="target" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400" value="{{ $indikator->target }}" required>
+            <input type="number" name="target" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" value="{{ $indikator->target }}" required>
         </div>
         <div class="mb-4">
             <label>Realisasi</label>
-            <input type="number" name="realisasi" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400" value="{{ $indikator->realisasi }}" required>
+            <input type="number" name="realisasi" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" value="{{ $indikator->realisasi }}" required>
         </div>
-        <button type="submit" class="px-4 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">Update</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('pegawai.indikator.index') }}" class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition">Batal</a>
     </form>
 </div>

@@ -5,9 +5,9 @@
 <div class="max-w-5xl mx-auto">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Indikator Saya</h1>
     <div class="mb-6">
-        <a href="{{ route('pegawai.indikator.create') }}" class="inline-block px-4 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">+ Tambah Indikator</a>
+        <a href="{{ route('pegawai.indikator.create') }}" class="inline-block px-4 py-2 rounded bg-cyan-600 text-white font-semibold hover:bg-cyan-700 transition">+ Tambah Indikator</a>
     </div>
-    <div class="bg-white rounded-lg shadow overflow-x-auto">
+    <div class="card-wrapper overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 text-left">
         <thead>
             <tr class="hover:bg-gray-50">
