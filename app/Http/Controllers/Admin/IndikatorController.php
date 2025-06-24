@@ -16,6 +16,7 @@ class IndikatorController extends Controller
     {
         $mode = $request->query('mode', 'default');
         $search = $request->query('q');
+        $perPage = (int) $request->query('per', 15);
 
         $query = Indikator::with('pegawai');
 
@@ -59,7 +60,7 @@ class IndikatorController extends Controller
                 break;
         }
 
-        $indikators = $query->paginate(15)->withQueryString();
+        $indikators = $query->paginate($perPage)->withQueryString();
 
         $grouped = null;
         if ($mode === 'pegawai') {
@@ -72,6 +73,7 @@ class IndikatorController extends Controller
             'indikators' => $indikators,
             'mode' => $mode,
             'grouped' => $grouped,
+            'perPage' => $perPage,
         ]);
     }
 
