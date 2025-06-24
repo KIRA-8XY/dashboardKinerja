@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts & Tailwind CSS CDN -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
         /* Cyan theme overrides for existing pink utility classes */
@@ -16,7 +16,16 @@
         /* Remove duplicate card wrappers padding fix */
         .card-wrapper{background:#fff;border-radius:1rem;box-shadow:0 1px 2px rgba(0,0,0,0.05);padding:1.5rem}
         /* Utility button classes for future use */
-        .btn{display:inline-block;border-radius:9999px;padding:0.375rem 1rem;font-weight:600;transition:background-color .15s}
+        /* Pagination styling */
+        nav[role="navigation"] a,
+        nav[role="navigation"] span[aria-current="page"]{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;padding:0;border:1px solid #e5e7eb;border-radius:0.5rem;margin:0 0.125rem;font-size:0.875rem;font-weight:500;line-height:1;}
+        nav[role="navigation"] a:hover{background-color:#f1f5f9}
+
+        nav[role="navigation"] a:hover{background-color:#f1f5f9}
+        nav[role="navigation"] span[aria-current="page"]{background-color:#e0f2fe;border-color:#bae6fd;color:#0891b2;}
+        nav[role="navigation"] span[aria-current="page"]>span{background-color:transparent;border:0;color:inherit;}
+
+        .btn{display:inline-block;border-radius:9999px;padding:0.375rem 1rem;font-weight:600;font-size:0.875rem;transition:background-color .15s}
         .btn-primary{background-color:#0891b2;color:#fff}
         .btn-primary:hover{background-color:#0e7490}
         .btn-danger{background-color:transparent;color:#dc2626;border:1px solid #ef4444;font-size:0.875rem;padding:0.25rem 0.75rem}
@@ -38,23 +47,23 @@
         .ring-pink-400{--tw-ring-color:#22d3ee!important}
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex">
+<body class="bg-gray-100 text-gray-700 min-h-screen flex font-sans">
     @if(auth()->check())
         <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r min-h-screen flex flex-col justify-between">
+        <aside class="w-64 bg-gradient-to-b from-white to-gray-50 border-r border-gray-200 shadow-sm fixed inset-y-0 flex flex-col justify-between">
             <div>
                 <div class="px-6 py-6 border-b">
                     <span class="font-bold text-xl text-pink-700">Dashboard Kinerja</span>
                 </div>
                 <nav class="px-4 py-6 space-y-2 flex-1">
                     @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.dashboard') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Dashboard</a>
-                        <a href="{{ route('admin.pegawai.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.pegawai.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Manajemen Pegawai</a>
-                        <a href="{{ route('admin.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.indikator.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Manajemen Indikator</a>
+                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Dashboard</a>
+                        <a href="{{ route('admin.pegawai.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.pegawai.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Manajemen Pegawai</a>
+                        <a href="{{ route('admin.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Manajemen Indikator</a>
                     @elseif(auth()->user()->role === 'pegawai')
-                        <a href="{{ route('pegawai.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.dashboard') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Profil Kinerja</a>
-                        <a href="{{ route('pegawai.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.indikator.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Indikator Saya</a>
-                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Riwayat Kinerja</a>
+                        <a href="{{ route('pegawai.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Profil Kinerja</a>
+                        <a href="{{ route('pegawai.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Indikator Saya</a>
+                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Riwayat Kinerja</a>
                     @endif
                 </nav>
             </div>
@@ -68,7 +77,7 @@
     @endif
 
     <!-- Main Content -->
-    <main class="@if(auth()->check()) flex-1 p-8 bg-gray-100 min-h-screen @else flex items-center justify-center min-h-screen w-full @endif">
+    <main class="@if(auth()->check()) ml-64 flex-1 p-8 bg-gray-100 min-h-screen @else flex items-center justify-center min-h-screen w-full @endif">
         @yield('content')
     </main>
     <!-- SweetAlert2 -->
