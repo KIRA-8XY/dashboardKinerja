@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PegawaiSeeder::class,
             UserSeeder::class,
             IndikatorSeeder::class,
+            RiwayatKinerjaSeeder::class,
         ]);
     }
 
