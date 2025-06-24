@@ -13,7 +13,14 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $pegawais = Pegawai::all();
+        $query = Pegawai::query();
+
+        // Hanya devadmin yang bisa melihat pegawai id 99
+        if (auth()->user()->email !== 'devadmin@example.com') {
+            $query->where('id', '!=', 99);
+        }
+
+        $pegawais = $query->get();
         return view('admin.pegawai.index', compact('pegawais'));
     }
 
@@ -47,6 +54,9 @@ class PegawaiController extends Controller
      */
     public function show($id)
     {
+        if ($id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Akses ditolak');
+        }
         $pegawai = Pegawai::findOrFail($id);
         return view('admin.pegawai.show', compact('pegawai'));
     }
@@ -56,6 +66,9 @@ class PegawaiController extends Controller
      */
     public function edit($id)
     {
+        if ($id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Akses ditolak');
+        }
         $pegawai = Pegawai::findOrFail($id);
         return view('admin.pegawai.edit', compact('pegawai'));
     }
@@ -65,6 +78,9 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Akses ditolak');
+        }
         $pegawai = Pegawai::findOrFail($id);
 
         $request->validate([
@@ -84,6 +100,9 @@ class PegawaiController extends Controller
      */
     public function destroy($id)
     {
+        if ($id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Akses ditolak');
+        }
         $pegawai = Pegawai::findOrFail($id);
         $pegawai->delete();
 

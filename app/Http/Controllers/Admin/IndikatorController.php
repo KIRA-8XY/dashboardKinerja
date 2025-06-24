@@ -14,7 +14,14 @@ class IndikatorController extends Controller
      */
     public function index()
     {
-        $indikators = Indikator::with('pegawai')->get();
+        $query = \App\Models\Indikator::with('pegawai');
+
+        // Hanya devadmin yang bisa melihat indikator milik pegawai id 99
+        if (auth()->user()->email !== 'devadmin@example.com') {
+            $query->where('pegawai_id', '!=', 99);
+        }
+
+        $indikators = $query->get();
         return view('admin.indikator.index', compact('indikators'));
     }
 
