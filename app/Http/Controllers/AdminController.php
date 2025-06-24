@@ -9,11 +9,14 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // Ganti 99 dengan id pegawai Anda yang ingin di-exclude
-        $pegawais = \App\Models\Pegawai::with('indikators')
-            ->where('id', '!=', 99)
-            ->get();
+        $query = \App\Models\Pegawai::with('indikators');
 
+        // Hanya devadmin yang bisa melihat pegawai id 99
+        if (auth()->user()->email !== 'devadmin@example.com') {
+            $query->where('id', '!=', 99);
+        }
+
+        $pegawais = $query->get();
         return view('admin.dashboard', compact('pegawais'));
     }
 }
