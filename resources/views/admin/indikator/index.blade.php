@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
+<div class="max-w-7xl mx-auto px-4">
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-bold text-gray-800">Daftar Indikator</h2>
         <div class="flex items-center gap-4">
@@ -26,9 +26,9 @@
             </form>
         </div>
     </div>
-        <div class="bg-white rounded-xl shadow p-6 overflow-x-auto">
+        <div class="bg-white rounded-xl shadow p-6 overflow-x-auto ring-1 ring-gray-200">
         <table class="min-w-full divide-y divide-gray-200">
-            <thead>
+            <thead class="sticky top-0 bg-white">
                 <tr>
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">No</th>
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Pegawai</th>
@@ -45,7 +45,7 @@
                             <td colspan="6" class="px-4 py-2 font-semibold text-pink-700">{{ $groupKey }}</td>
                         </tr>
                         @foreach($rows as $indikator)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="even:bg-gray-50 hover:bg-gray-100">
                                 <td class="px-4 py-2 text-gray-700">{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
                                 <td class="px-4 py-2 text-gray-700">{{ $indikator->pegawai->nama ?? '-' }}</td>
                                 <td class="px-4 py-2 text-gray-700">{{ $indikator->nama_indikator }}</td>
@@ -63,7 +63,7 @@
                     @endforeach
                 @else
                     @foreach($indikators as $i => $indikator)
-                    <tr>
+                    <tr class="even:bg-gray-50 hover:bg-gray-100">
                         <td class="px-4 py-2 text-gray-700">{{ $i+1 }}</td>
                         <td class="px-4 py-2 text-gray-700">{{ $indikator->pegawai->nama ?? '-' }}</td>
                         <td class="px-4 py-2 text-gray-700">{{ $indikator->nama_indikator }}</td>
