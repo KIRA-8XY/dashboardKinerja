@@ -1,25 +1,34 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@extends('layouts.app')
+
+@section('content')
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-10 sm:p-12 welcome-card">
+        <h2 class="text-2xl font-bold mb-8 text-center text-gray-800">Lupa Kata Sandi</h2>
+        <div class="mb-4 text-sm text-gray-600">
+            Masukkan email Anda dan kami akan mengirimkan link untuk mengatur ulang kata sandi.
+        </div>
+        @if (session('status'))
+            <div class="mb-4 text-green-600">{{ session('status') }}</div>
+        @endif
+        <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
+            @csrf
+            <div>
+                <label class="block mb-1 font-semibold text-gray-700">Email</label>
+                <input type="email" name="email" required autofocus
+                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                    value="{{ old('email') }}">
+                @error('email')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <button type="submit"
+                class="w-full px-4 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">
+                Kirim Link Reset
+            </button>
+        </form>
+        <div class="mt-8 text-center text-sm">
+            <a href="{{ route('login') }}" class="text-pink-600 hover:underline">Kembali ke Login</a>
+        </div>
     </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</div>
+@endsection
