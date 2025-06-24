@@ -15,7 +15,7 @@ class PegawaiController extends Controller
     {
         $query = Pegawai::query();
         $search = $request->query('q');
-        $perPage = (int) $request->query('per', 15);
+        
 
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -29,10 +29,10 @@ class PegawaiController extends Controller
             $query->where('id', '!=', 99);
         }
 
-        $pegawais = $query->orderBy('nama')->paginate($perPage)->withQueryString();
+        $pegawais = $query->orderBy('nama')->paginate(15)->withQueryString();
         return view('admin.pegawai.index', [
             'pegawais' => $pegawais,
-            'perPage' => $perPage,
+            
         ]);
     }
 
