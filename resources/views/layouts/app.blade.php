@@ -21,13 +21,13 @@
                 </div>
                 <nav class="px-4 py-6 space-y-2 flex-1">
                     @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700 font-semibold">Dashboard</a>
-                        <a href="{{ route('admin.pegawai.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Manajemen Pegawai</a>
-                        <a href="{{ route('admin.indikator.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Manajemen Indikator</a>
+                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.dashboard') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Dashboard</a>
+                        <a href="{{ route('admin.pegawai.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.pegawai.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Manajemen Pegawai</a>
+                        <a href="{{ route('admin.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.indikator.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Manajemen Indikator</a>
                     @elseif(auth()->user()->role === 'pegawai')
-                        <a href="{{ route('pegawai.dashboard') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700 font-semibold">Profil Kinerja</a>
-                        <a href="{{ route('pegawai.indikator.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Indikator Saya</a>
-                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="block px-4 py-2 rounded hover:bg-pink-50 text-gray-700">Riwayat Kinerja</a>
+                        <a href="{{ route('pegawai.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.dashboard') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Profil Kinerja</a>
+                        <a href="{{ route('pegawai.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.indikator.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Indikator Saya</a>
+                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-pink-100 text-pink-700 font-semibold' : 'hover:bg-pink-50 text-gray-700' }}">Riwayat Kinerja</a>
                     @endif
                 </nav>
             </div>
