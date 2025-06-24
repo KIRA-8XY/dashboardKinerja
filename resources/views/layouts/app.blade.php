@@ -32,10 +32,10 @@
         .btn-danger:hover{background-color:#ef4444;color:#fff}
         .btn-warning{background-color:transparent;color:#ca8a04;border:1px solid #facc15;font-size:0.875rem;padding:0.25rem 0.75rem}
         .btn-warning:hover{background-color:#facc15;color:#000}
-        .bg-pink-600{background-color:#0891b2!important}
+        .bg-cyan-600{background-color:#0891b2!important}
         .bg-pink-700{background-color:#0e7490!important}
         .hover\:bg-pink-700:hover{background-color:#0e7490!important}
-        .hover\:bg-pink-600:hover{background-color:#0891b2!important}
+        .hover\:bg-cyan-600:hover{background-color:#0891b2!important}
         .text-pink-700{color:#0e7490!important}
         .text-pink-600{color:#0891b2!important}
         .bg-pink-100{background-color:#cffafe!important;color:#0e7490!important}
@@ -53,24 +53,57 @@
         <aside class="w-64 bg-gradient-to-b from-white to-gray-50 border-r border-gray-200 shadow-sm fixed inset-y-0 flex flex-col justify-between">
             <div>
                 <div class="px-6 py-6 border-b">
-                    <span class="font-bold text-xl text-pink-700">Dashboard Kinerja</span>
+                    <span class="font-bold text-xl text-cyan-700">Dashboard Kinerja</span>
                 </div>
                 <nav class="px-4 py-6 space-y-2 flex-1">
                     @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Dashboard</a>
-                        <a href="{{ route('admin.pegawai.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.pegawai.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Manajemen Pegawai</a>
-                        <a href="{{ route('admin.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('admin.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Manajemen Indikator</a>
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9.75L12 3l9 6.75V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z" />
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+
+                        <a href="{{ route('admin.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('admin.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h4v-4H9zM15 17h4v-9h-4z" />
+                            </svg>
+                            <span>Manajemen Indikator</span>
+                        </a>
+                        <a href="{{ route('admin.pegawai.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('admin.pegawai.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.9 4.024a9 9 0 01-13.779 13.78z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Manajemen Pegawai</span>
+                        </a>
                     @elseif(auth()->user()->role === 'pegawai')
-                        <a href="{{ route('pegawai.dashboard') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Profil Kinerja</a>
-                        <a href="{{ route('pegawai.indikator.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Indikator Saya</a>
-                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="block px-4 py-2 rounded {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">Riwayat Kinerja</a>
+                        <a href="{{ route('pegawai.dashboard') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('pegawai.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.9 4.024a9 9 0 01-13.779 13.78z" />
+                            </svg>
+                            <span>Profil Kinerja</span>
+                        </a>
+                        <a href="{{ route('pegawai.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('pegawai.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                            </svg>
+                            <span>Indikator Saya</span>
+                        </a>
+                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-3a4 4 0 018 0v3M12 7a4 4 0 110 8" />
+                            </svg>
+                            <span>Riwayat Kinerja</span>
+                        </a>
                     @endif
                 </nav>
             </div>
             <div class="px-4 py-4 border-t sticky bottom-0">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="w-full px-4 py-2 rounded bg-pink-600 text-white hover:bg-pink-700 font-semibold">Keluar</button>
+                    <button class="w-full px-4 py-2 rounded bg-cyan-600 text-white hover:bg-cyan-700 font-semibold">Keluar</button>
                 </form>
             </div>
         </aside>
