@@ -30,7 +30,14 @@ class IndikatorController extends Controller
      */
     public function create()
     {
-        $pegawais = Pegawai::all();
+        $query = Pegawai::query();
+
+        // Exclude developer pegawai (ID 99) for non-devadmin users
+        if (auth()->user()->email !== 'devadmin@example.com') {
+            $query->where('id', '!=', 99);
+        }
+
+        $pegawais = $query->get();
         return view('admin.indikator.create', compact('pegawais'));
     }
 
@@ -63,6 +70,12 @@ class IndikatorController extends Controller
     public function edit($id)
     {
         $indikator = Indikator::findOrFail($id);
+
+        // Only devadmin can edit indikator for pegawai with id 99
+        if ($indikator->pegawai_id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Unauthorized action.');
+        }
+
         $pegawais = Pegawai::all();
         return view('admin.indikator.edit', compact('indikator', 'pegawais'));
     }
@@ -73,6 +86,12 @@ class IndikatorController extends Controller
     public function update(Request $request, $id)
     {
         $indikator = Indikator::findOrFail($id);
+
+        // Only devadmin can update indikator for pegawai with id 99
+        if ($indikator->pegawai_id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'pegawai_id' => 'required|exists:pegawais,id',
             'nama_indikator' => 'required|string|max:255',
@@ -89,6 +108,12 @@ class IndikatorController extends Controller
     public function destroy($id)
     {
         $indikator = Indikator::findOrFail($id);
+
+        // Only devadmin can delete indikator for pegawai with id 99
+        if ($indikator->pegawai_id == 99 && auth()->user()->email !== 'devadmin@example.com') {
+            abort(403, 'Unauthorized action.');
+        }
+
         $indikator->delete();
         return redirect()->route('admin.indikator.index')->with('success', 'Indikator berhasil dihapus');
     }
