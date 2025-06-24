@@ -11,7 +11,11 @@
                 <input type="hidden" name="per" value="{{ $perPage }}">
                 <input type="hidden" name="mode" value="{{ $mode }}">
                 <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari indikator / pegawai" class="w-44 md:w-64 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 shadow-sm" />
-                <button type="submit" class="hidden">Cari</button>
+                <button type="submit" class="px-3 py-2 rounded bg-pink-600 text-white hover:bg-pink-700 focus:ring-2 focus:ring-pink-400" aria-label="Cari">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 9 7.5 7.5 0 0116.65 16.65z" />
+                    </svg>
+                </button>
             </form>
             <span class="text-sm text-gray-600 whitespace-nowrap">Tampilan:</span>
             <form method="GET">

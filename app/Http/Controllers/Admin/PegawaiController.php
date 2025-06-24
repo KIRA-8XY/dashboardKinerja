@@ -11,17 +11,29 @@ class PegawaiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = Pegawai::query();
+        $search = $request->query('q');
+        $perPage = (int) $request->query('per', 15);
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                   ->orWhere('jabatan', 'like', "%{$search}%");
+            });
+        }
 
         // Hanya devadmin yang bisa melihat pegawai id 99
         if (auth()->user()->email !== 'devadmin@example.com') {
             $query->where('id', '!=', 99);
         }
 
-        $pegawais = $query->get();
-        return view('admin.pegawai.index', compact('pegawais'));
+        $pegawais = $query->orderBy('nama')->paginate($perPage)->withQueryString();
+        return view('admin.pegawai.index', [
+            'pegawais' => $pegawais,
+            'perPage' => $perPage,
+        ]);
     }
 
     /**
