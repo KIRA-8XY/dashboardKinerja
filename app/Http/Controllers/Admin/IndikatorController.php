@@ -12,17 +12,56 @@ class IndikatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = \App\Models\Indikator::with('pegawai');
+        $mode = $request->query('mode', 'default');
+
+        $query = Indikator::with('pegawai');
 
         // Hanya devadmin yang bisa melihat indikator milik pegawai id 99
         if (auth()->user()->email !== 'devadmin@example.com') {
             $query->where('pegawai_id', '!=', 99);
         }
 
+                // Sorting / ordering based on mode
+        switch ($mode) {
+            case 'pegawai':
+                $query->orderBy('pegawai_id');
+                break;
+            case 'indikator':
+                $query->orderBy('nama_indikator');
+                break;
+            case 'target_desc':
+                $query->orderByDesc('target');
+                break;
+            case 'target_asc':
+                $query->orderBy('target');
+                break;
+            case 'realisasi_desc':
+                $query->orderByDesc('realisasi');
+                break;
+            case 'realisasi_asc':
+                $query->orderBy('realisasi');
+                break;
+            default:
+                // keep default order
+                break;
+        }
+
         $indikators = $query->get();
-        return view('admin.indikator.index', compact('indikators'));
+
+        $grouped = null;
+        if ($mode === 'pegawai') {
+            $grouped = $indikators->groupBy(fn($item) => $item->pegawai->nama ?? 'Tidak ada Pegawai');
+        } elseif ($mode === 'indikator') {
+            $grouped = $indikators->groupBy('nama_indikator');
+        }
+
+        return view('admin.indikator.index', [
+            'indikators' => $indikators,
+            'mode' => $mode,
+            'grouped' => $grouped,
+        ]);
     }
 
     /**
