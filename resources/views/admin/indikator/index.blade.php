@@ -27,9 +27,9 @@
                     <td class="px-4 py-2 text-center text-gray-600">{{ number_format($indikator->realisasi) }}</td>
                     <td class="px-4 py-2 text-center">
                         <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="inline-block px-3 py-1 rounded bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition">Edit</a>
-                        <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" class="inline">
+                        <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" class="inline delete-form">
                             @csrf @method('DELETE')
-                            <button type="submit" class="inline-block px-3 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-600 transition" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                            <button type="submit" class="inline-block px-3 py-1 rounded bg-red-500 text-white font-semibold hover:bg-red-600 transition">Hapus</button>
                         </form>
                     </td>
                 </tr>
