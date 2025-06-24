@@ -34,5 +34,17 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/pegawai/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
 });
 
+// Admin CRUD Pegawai & Indikator
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('pegawai', \App\Http\Controllers\Admin\PegawaiController::class);
+    Route::resource('indikator', \App\Http\Controllers\Admin\IndikatorController::class);
+});
+
+// Pegawai CRUD Indikator & Riwayat Kinerja
+Route::middleware(['auth', 'role:pegawai'])->prefix('pegawai')->name('pegawai.')->group(function () {
+    Route::resource('indikator', \App\Http\Controllers\Pegawai\IndikatorController::class);
+    Route::resource('riwayat-kinerja', \App\Http\Controllers\Pegawai\RiwayatKinerjaController::class);
+});
+
 // Route auth default dari Laravel Breeze
 require __DIR__.'/auth.php';

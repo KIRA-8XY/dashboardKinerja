@@ -49,10 +49,12 @@
         <h4>Dashboard</h4>
         @if(auth()->user()->role === 'admin')
             <a href="{{ route('admin.dashboard') }}">Beranda Admin</a>
-            <a href="#">Manajemen Pegawai</a>
-            <a href="#">Manajemen Indikator</a>
+            <a href="{{ route('admin.pegawai.index') }}">Manajemen Pegawai</a>
+            <a href="{{ route('admin.indikator.index') }}">Manajemen Indikator</a>
         @elseif(auth()->user()->role === 'pegawai')
             <a href="{{ route('pegawai.dashboard') }}">Profil Kinerja</a>
+            <a href="{{ route('pegawai.indikator.index') }}">Indikator Saya</a>
+            <a href="{{ route('pegawai.riwayat-kinerja.index') }}">Riwayat Kinerja</a>
         @endif
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
