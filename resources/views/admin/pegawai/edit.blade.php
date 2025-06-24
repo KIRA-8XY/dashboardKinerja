@@ -9,19 +9,27 @@
         @method('PUT')
         <div>
             <label class="block mb-1 font-semibold">Nama</label>
-            <input type="text" name="nama" class="form-control w-full rounded border-gray-300" value="{{ $pegawai->nama }}" required>
+            <input type="text" name="nama"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                value="{{ $pegawai->nama }}" required>
         </div>
         <div>
             <label class="block mb-1 font-semibold">Jabatan</label>
-            <input type="text" name="jabatan" class="form-control w-full rounded border-gray-300" value="{{ $pegawai->jabatan }}">
+            <input type="text" name="jabatan"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                value="{{ $pegawai->jabatan }}">
         </div>
         <div>
             <label class="block mb-1 font-semibold">Target</label>
-            <input type="number" name="target" class="form-control w-full rounded border-gray-300" value="{{ $pegawai->target }}">
+            <input type="number" name="target"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                value="{{ $pegawai->target }}">
         </div>
         <div>
             <label class="block mb-1 font-semibold">Realisasi</label>
-            <input type="number" name="realisasi" class="form-control w-full rounded border-gray-300" value="{{ $pegawai->realisasi }}">
+            <input type="number" name="realisasi"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                value="{{ $pegawai->realisasi }}">
         </div>
         <div class="flex gap-2">
             <button type="submit" class="px-5 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">Update</button>
