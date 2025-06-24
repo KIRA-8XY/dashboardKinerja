@@ -38,7 +38,9 @@
                 <tr>
                     <td class="px-4 py-2 text-gray-700">{{ $pegawais->firstItem() + $i }}</td>
                     <td class="px-4 py-2 text-gray-700">{{ $pegawai->nama }}</td>
-                    <td class="px-4 py-2 text-gray-700">{{ $pegawai->jabatan }}</td>
+                    <td class="px-4 py-2 {{ empty($pegawai->jabatan) ? 'text-gray-500 italic' : 'text-gray-700' }}">
+                        {{ empty($pegawai->jabatan) ? 'Silahkan lengkapi jabatan pegawai ini' : $pegawai->jabatan }}
+                    </td>
                     <td class="px-4 py-2 text-center">
                         <a href="{{ route('admin.pegawai.edit', $pegawai->id) }}" class="inline-block px-3 py-1 rounded bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition">Edit</a>
                         <form action="{{ route('admin.pegawai.destroy', $pegawai->id) }}" method="POST" class="inline delete-form">
