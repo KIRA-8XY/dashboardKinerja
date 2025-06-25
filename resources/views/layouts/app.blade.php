@@ -68,21 +68,21 @@
                 </div>
                 <nav class="px-4 py-6 space-y-2 flex-1">
                     @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9.75L12 3l9 6.75V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z" />
                             </svg>
                             <span>Dashboard</span>
                         </a>
 
-                        <a href="{{ route('admin.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('admin.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
+                        <a href="{{ route('admin.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('admin.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h4v-4H9zM15 17h4v-9h-4z" />
                             </svg>
                             <span>Manajemen Indikator</span>
                         </a>
-                        <a href="{{ route('admin.pegawai.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('admin.pegawai.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                        <a href="{{ route('admin.pegawai.index') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('admin.pegawai.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.9 4.024a9 9 0 01-13.779 13.78z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -90,19 +90,19 @@
                             <span>Manajemen Pegawai</span>
                         </a>
                     @elseif(auth()->user()->role === 'pegawai')
-                        <a href="{{ route('pegawai.dashboard') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('pegawai.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                        <a href="{{ route('pegawai.dashboard') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('pegawai.dashboard') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.9 4.024a9 9 0 01-13.779 13.78z" />
                             </svg>
                             <span>Profil Kinerja</span>
                         </a>
-                        <a href="{{ route('pegawai.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('pegawai.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                        <a href="{{ route('pegawai.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('pegawai.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
                             </svg>
                             <span>Indikator Saya</span>
                         </a>
-                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="flex items-center gap-3 px-4 py-2 rounded transition-colors duration-150 {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
+                        <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-3a4 4 0 018 0v3M12 7a4 4 0 110 8" />
                             </svg>

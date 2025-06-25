@@ -25,11 +25,11 @@
                 <td class="px-6 py-3">{{ $indikator->nama_indikator }}</td>
                 <td class="px-6 py-3">{{ number_format($indikator->target) }}</td>
                 <td class="px-6 py-3">{{ number_format($indikator->realisasi) }}</td>
-                <td>
-                    <a href="{{ route('pegawai.indikator.edit', $indikator->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                <td class="px-6 py-3 text-center">
+                    <a href="{{ route('pegawai.indikator.edit', $indikator->id) }}" class="btn btn-warning mr-2">Edit</a>
                     <form action="{{ route('pegawai.indikator.destroy', $indikator->id) }}" method="POST" class="inline delete-form">
                         @csrf @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </td>
             </tr>

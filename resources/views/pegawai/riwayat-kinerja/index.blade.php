@@ -29,11 +29,11 @@
                 <td class="px-6 py-3">{{ number_format($riwayat->realisasi) }}</td>
                 <td class="px-6 py-3">{{ $riwayat->bulan }}</td>
                 <td class="px-6 py-3">{{ $riwayat->tahun }}</td>
-                <td>
-                    <a href="{{ route('pegawai.riwayat-kinerja.edit', $riwayat->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                <td class="px-6 py-3 text-center">
+                    <a href="{{ route('pegawai.riwayat-kinerja.edit', $riwayat->id) }}" class="btn btn-warning mr-2">Edit</a>
                     <form action="{{ route('pegawai.riwayat-kinerja.destroy', $riwayat->id) }}" method="POST" class="inline delete-form">
                         @csrf @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </td>
             </tr>
