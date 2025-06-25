@@ -14,9 +14,9 @@ class IndikatorController extends Controller
      */
     public function index(Request $request)
     {
-        $mode = $request->query('mode', 'default');
-        $search = $request->query('q');
-        $perPage = (int) $request->query('per', 15);
+        $perPage = $request->input('per', 10);
+        $mode = $request->input('mode', 'default');
+        $search = $request->input('q');
 
         $query = Indikator::with('pegawai');
 
