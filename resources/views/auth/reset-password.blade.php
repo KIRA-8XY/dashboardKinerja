@@ -10,7 +10,7 @@
             <div>
                 <label class="block mb-1 font-semibold text-gray-700">Email</label>
                 <input type="email" name="email" required autofocus
-                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                     value="{{ old('email', $request->email) }}">
                 @error('email')
                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -19,7 +19,7 @@
             <div>
                 <label class="block mb-1 font-semibold text-gray-700">Kata Sandi Baru</label>
                 <input type="password" name="password" required
-                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400">
                 @error('password')
                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                 @enderror
@@ -27,13 +27,13 @@
             <div>
                 <label class="block mb-1 font-semibold text-gray-700">Konfirmasi Kata Sandi</label>
                 <input type="password" name="password_confirmation" required
-                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                    class="w-full rounded border border-gray-300 bg-white text-gray-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400">
                 @error('password_confirmation')
                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                 @enderror
             </div>
             <button type="submit"
-                class="w-full px-4 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">
+                class="w-full px-4 py-2 rounded bg-cyan-600 text-white font-semibold hover:bg-cyan-700 transition">
                 Atur Ulang Kata Sandi
             </button>
         </form>

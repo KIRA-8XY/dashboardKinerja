@@ -10,7 +10,7 @@
         <div>
             <label class="block mb-1 font-semibold">Pegawai</label>
             <select name="pegawai_id"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400" required>
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
                 @foreach($pegawais as $pegawai)
                     <option value="{{ $pegawai->id }}" {{ $indikator->pegawai_id == $pegawai->id ? 'selected' : '' }}>{{ $pegawai->nama }}</option>
                 @endforeach
@@ -19,23 +19,23 @@
         <div>
             <label class="block mb-1 font-semibold">Nama Indikator</label>
             <input type="text" name="nama_indikator"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 value="{{ $indikator->nama_indikator }}" required>
         </div>
         <div>
             <label class="block mb-1 font-semibold">Target</label>
             <input type="number" name="target"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 value="{{ $indikator->target }}" required>
         </div>
         <div>
             <label class="block mb-1 font-semibold">Realisasi</label>
             <input type="number" name="realisasi"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 value="{{ $indikator->realisasi }}" required>
         </div>
         <div class="flex gap-2">
-            <button type="submit" class="px-5 py-2 rounded bg-pink-600 text-white font-semibold hover:bg-pink-700 transition">Update</button>
+            <button type="submit" class="px-5 py-2 rounded bg-cyan-600 text-white font-semibold hover:bg-cyan-700 transition">Update</button>
             <a href="{{ route('admin.indikator.index') }}" class="px-5 py-2 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition">Batal</a>
         </div>
     </form>
