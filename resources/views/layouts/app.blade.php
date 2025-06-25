@@ -104,7 +104,7 @@
                         </a>
                         <a href="{{ route('pegawai.riwayat-kinerja.index') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-3a4 4 0 018 0v3M12 7a4 4 0 110 8" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <span>Riwayat Kinerja</span>
                         </a>
