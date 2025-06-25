@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-5xl mx-auto animate-fade-up">
     <h1 class="text-3xl font-extrabold mb-4 text-gray-800">Dashboard Pegawai</h1>
-    <div class="flex items-center gap-4 p-4 mb-6 bg-cyan-50 rounded-xl shadow-inner">
+    <div class="flex items-center gap-4 p-4 mb-6 bg-cyan-50 rounded-xl shadow-inner transition-all duration-300 hover:shadow-md hover:ring-2 hover:ring-cyan-100 hover:bg-white">
         <div class="h-12 w-12 rounded-full bg-cyan-100 flex items-center justify-center text-2xl">👋</div>
         <div>
             <p class="text-lg text-gray-700">Halo,</p>

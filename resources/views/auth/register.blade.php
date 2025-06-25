@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="w-full max-w-xl sm:max-w-2xl bg-white rounded-2xl shadow-2xl p-10 sm:p-12">
+<x-guest-layout>
+    <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 transition-all duration-300 hover:shadow-3xl hover:-translate-y-1 hover:ring-2 hover:ring-cyan-100">
         <h2 class="text-2xl font-bold mb-8 text-center text-gray-800">Daftar Akun Baru</h2>
         <form method="POST" action="{{ route('register') }}" class="space-y-6">
             @csrf
@@ -34,5 +31,4 @@
             <a href="{{ route('login') }}" class="text-cyan-600 hover:underline">Masuk di sini</a>
         </div>
     </div>
-</div>
-@endsection
+</x-guest-layout>
