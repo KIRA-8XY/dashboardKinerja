@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-xl mx-auto bg-white rounded-lg shadow p-6">
+<div class="max-w-5xl mx-auto animate-fade-up bg-white rounded-lg shadow p-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit Riwayat Kinerja</h1>
     <form action="{{ route('pegawai.riwayat-kinerja.update', $riwayat->id) }}" method="POST">
         @csrf @method('PUT')

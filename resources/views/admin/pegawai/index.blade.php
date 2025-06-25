@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 space-y-6">
+<div class="max-w-7xl mx-auto px-4 animate-fade-up space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 class="text-2xl font-bold text-gray-800">Manajemen Pegawai</h1>
         <div class="flex flex-col sm:flex-row gap-3">

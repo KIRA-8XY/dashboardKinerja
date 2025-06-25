@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-xl mx-auto card-wrapper">
+<div class="max-w-5xl mx-auto animate-fade-up card-wrapper">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Tambah Riwayat Kinerja</h1>
     <form action="{{ route('pegawai.riwayat-kinerja.store') }}" method="POST">
         @csrf

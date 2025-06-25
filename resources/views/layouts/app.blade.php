@@ -56,6 +56,28 @@
         .focus\:ring-pink-400:focus{box-shadow:0 0 0 2px #22d3ee!important}
         .focus\:border-pink-400:focus{border-color:#22d3ee!important}
         .ring-pink-400{--tw-ring-color:#22d3ee!important}
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-page-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-700 min-h-screen flex font-sans">
@@ -77,7 +99,7 @@
 
                         <a href="{{ route('admin.indikator.index') }}" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 {{ request()->routeIs('admin.indikator.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-50 text-gray-700' }}">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M3 9h18M3 15h18M3 21h18" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h4v-4H9zM15 17h4v-9h-4z" />
                             </svg>
                             <span>Manajemen Indikator</span>

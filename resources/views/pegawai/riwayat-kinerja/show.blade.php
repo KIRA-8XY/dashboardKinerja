@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container animate-fade-up">
     <h2>Detail Riwayat Kinerja</h2>
     <ul>
         <li>Nama Indikator: {{ $riwayat->nama_indikator }}</li>

@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-5xl mx-auto">
+<div class="max-w-5xl mx-auto animate-fade-up">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Riwayat Kinerja</h1>
     <div class="mb-6">
         <a href="{{ route('pegawai.riwayat-kinerja.create') }}" class="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-2 px-4 rounded">+ Tambah Riwayat</a>

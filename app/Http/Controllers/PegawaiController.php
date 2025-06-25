@@ -21,7 +21,7 @@ class PegawaiController extends Controller
             return redirect()->back()->with('error', 'Data pegawai tidak ditemukan untuk user ini.');
         }
 
-        $indikators = $pegawai->indikators ?? [];
+        $indikators = $pegawai->indikators()->paginate(10);
 
         return view('pegawai.dashboard', compact('pegawai', 'indikators'));
     }
