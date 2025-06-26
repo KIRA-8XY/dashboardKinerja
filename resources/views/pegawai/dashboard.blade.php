@@ -15,6 +15,10 @@
     @php
     $totalKpi = $indikators->sum(fn($i) => $i->kpi_score['nilai']);
     $avgKpi = count($indikators) > 0 ? round($totalKpi / count($indikators), 1) : 0;
+    $green_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-success')->count();
+    $yellow_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-warning')->count();
+    $red_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-danger')->count();
+    $total_score = $indikators->sum(fn($i) => $i->kpi_score['nilai']);
 @endphp
 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
         <!-- Total Indikator -->
@@ -48,6 +52,27 @@
             </div>
             <span class="text-4xl font-extrabold">{{ $avgKpi }}</span>
             <p class="mt-2 text-sm font-medium">Rata-rata KPI</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+        <div class="card-wrapper bg-white rounded-2xl shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Skor</h3>
+            <p class="text-3xl font-bold text-cyan-600">{{ number_format($total_score, 2) }}</p>
+        </div>
+        
+        <div class="card-wrapper bg-emerald-500 text-white rounded-2xl shadow-md p-6">
+            <h3 class="text-lg font-semibold mb-2">KPI Hijau</h3>
+            <p class="text-3xl font-bold">{{ $green_kpis }}</p>
+        </div>
+        
+        <div class="card-wrapper bg-amber-500 text-white rounded-2xl shadow-md p-6">
+            <h3 class="text-lg font-semibold mb-2">KPI Kuning</h3>
+            <p class="text-3xl font-bold">{{ $yellow_kpis }}</p>
+        </div>
+        
+        <div class="card-wrapper bg-rose-500 text-white rounded-2xl shadow-md p-6">
+            <h3 class="text-lg font-semibold mb-2">KPI Merah</h3>
+            <p class="text-3xl font-bold">{{ $red_kpis }}</p>
         </div>
     </div>
     <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl transform motion-safe:animate-fadeInUp" style="animation-delay: 400ms">

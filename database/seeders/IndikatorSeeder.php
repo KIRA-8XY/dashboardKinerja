@@ -38,5 +38,15 @@ class IndikatorSeeder extends Seeder
                 ]);
             }
         }
+
+        // Update existing indikators with random max_scores
+        Indikator::chunk(200, function ($indikators) {
+            foreach ($indikators as $indikator) {
+                $indikator->update([
+                    'max_score' => rand(1, 25),
+                    'score' => round(($indikator->realisasi / $indikator->target) * rand(1, 25), 2)
+                ]);
+            }
+        });
     }
 }

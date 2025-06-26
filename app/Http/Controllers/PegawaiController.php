@@ -25,4 +25,34 @@ class PegawaiController extends Controller
 
         return view('pegawai.dashboard', compact('pegawai', 'indikators'));
     }
+
+    public function dashboard()
+    {
+        $indikators = auth()->user()->indikators;
+        
+        $green_kpis = $indikators->filter(function($indikator) {
+            $percentage = ($indikator->realisasi / $indikator->target) * 100;
+            return $percentage >= 100;
+        })->count();
+
+        $yellow_kpis = $indikators->filter(function($indikator) {
+            $percentage = ($indikator->realisasi / $indikator->target) * 100;
+            return $percentage >= 80 && $percentage < 100;
+        })->count();
+
+        $red_kpis = $indikators->filter(function($indikator) {
+            $percentage = ($indikator->realisasi / $indikator->target) * 100;
+            return $percentage < 80;
+        })->count();
+
+        $total_score = $indikators->sum('score');
+
+        return view('pegawai.dashboard', compact(
+            'indikators',
+            'green_kpis',
+            'yellow_kpis',
+            'red_kpis',
+            'total_score'
+        ));
+    }
 }

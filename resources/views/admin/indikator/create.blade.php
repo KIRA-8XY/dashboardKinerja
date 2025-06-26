@@ -19,6 +19,14 @@
             <label class="block mb-1 font-semibold">Nama Indikator</label>
             <input type="text" name="nama_indikator" class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
         </div>
+        <div class="mb-4">
+            <label for="max_score" class="block text-gray-700 text-sm font-bold mb-2">Skor Maksimal</label>
+            <input type="number" step="0.01" name="max_score" id="max_score" value="{{ old('max_score', 5) }}"
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            @error('max_score')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+            @enderror
+        </div>
         <div>
             <label class="block mb-1 font-semibold">Target</label>
             <input type="number" name="target" class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>

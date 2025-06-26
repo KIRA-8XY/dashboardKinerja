@@ -125,5 +125,23 @@
             </tbody>
         </table>
     </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-6">
+        @foreach ($pegawais as $pegawai)
+            @foreach ($pegawai->indikators as $indikator)
+                <div class="card-wrapper bg-white rounded-2xl shadow-md p-6 animate-fade-up">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $indikator->name }}</h3>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium {{ $indikator->getColorClass() }}">
+                            {{ number_format($indikator->score, 2) }} / {{ $indikator->max_score }}
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-gray-600">
+                        <span>Realisasi: {{ number_format($indikator->realisasi, 2) }}</span>
+                        <span>Target: {{ number_format($indikator->target, 2) }}</span>
+                    </div>
+                </div>
+            @endforeach
+        @endforeach
+    </div>
 </div>
 @endsection

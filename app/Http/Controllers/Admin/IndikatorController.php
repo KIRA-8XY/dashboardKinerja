@@ -135,23 +135,21 @@ class IndikatorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Indikator $indikator)
     {
-        $indikator = Indikator::findOrFail($id);
-
-        // Only devadmin can update indikator for pegawai with id 99
-        if ($indikator->pegawai_id == 99 && auth()->user()->email !== 'devadmin@example.com') {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $request->validate([
+        $validated = $request->validate([
             'pegawai_id' => 'required|exists:pegawais,id',
             'nama_indikator' => 'required|string|max:255',
             'target' => 'required|numeric',
             'realisasi' => 'required|numeric',
+            'max_score' => 'required|numeric|min:0'
         ]);
-        $indikator->update($request->all());
-        return redirect()->route('admin.indikator.index')->with('success', 'Indikator berhasil diupdate');
+
+        $indikator->update($validated);
+        $indikator->calculateScore(); // Calculate and save the score
+
+        return redirect()->route('admin.indikator.index')
+            ->with('success', 'Indikator berhasil diperbarui');
     }
 
     /**

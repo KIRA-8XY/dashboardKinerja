@@ -94,6 +94,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pegawai</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Realisasi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Score/Max</th>
                     <th scope="col" class="px-6 py-3"></th>
                 </tr>
             </thead>
@@ -101,9 +102,24 @@
                 @if($grouped)
                     @foreach($grouped as $groupKey => $rows)
                         <tr class="bg-cyan-50 animate-fade-up" style="animation-delay: {{ 0.4 + ($loop->index * 0.05) }}s">
-                            <td colspan="6" class="px-4 py-2 font-semibold text-cyan-700">{{ $groupKey }}</td>
+                            <td colspan="7" class="px-4 py-2 font-semibold text-cyan-700">{{ $groupKey }}</td>
                         </tr>
                         @foreach($rows as $indikator)
+                            @php
+                                $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
+                                $score = round(($percentage / 100) * $indikator->max_score, 2);
+                                
+                                if ($percentage >= 100) {
+                                    $color = 'bg-green-100 text-green-800';
+                                    $icon = '🟩';
+                                } elseif ($percentage >= 80) {
+                                    $color = 'bg-yellow-100 text-yellow-800';
+                                    $icon = '🟨';
+                                } else {
+                                    $color = 'bg-red-100 text-red-800';
+                                    $icon = '🟥';
+                                }
+                            @endphp
                             <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.45 + ($loop->parent->index * 0.05) + ($loop->index * 0.03) }}s">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
@@ -122,6 +138,11 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium {{ $color }}">
+                                        {{ $icon }} {{ $score }}/{{ $indikator->max_score }}
+                                    </span>
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="relative" x-data="{ open: false }">
                                         <button @click="open = !open" class="text-gray-400 hover:text-gray-600 focus:outline-none">
@@ -159,57 +180,77 @@
                     @endforeach
                 @else
                     @foreach($indikators as $i => $indikator)
-                    <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.4 + ($loop->index * 0.03) }}s">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $indikators->firstItem() + $i }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-cyan-100 flex items-center justify-center">
-                                    <svg class="h-6 w-6 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $indikator->pegawai->nama }}</div>
-                                    <div class="text-xs text-gray-500">{{ $indikator->pegawai->jabatan ?? '' }}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="relative" x-data="{ open: false }">
-                                <button @click="open = !open" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                                    </svg>
-                                </button>
-                                <div x-show="open" @click.away="open = false"
-                                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                                    <div class="py-1">
-                                        <a href="{{ route('admin.indikator.edit', $indikator->id) }}"
-                                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                            <svg class="inline h-4 w-4 mr-2 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                    onclick="return confirm('Hapus data indikator ini?')">
-                                                <svg class="inline h-4 w-4 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                                Hapus
-                                            </button>
-                                        </form>
+                        @php
+                            $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
+                            $score = round(($percentage / 100) * $indikator->max_score, 2);
+                            
+                            if ($percentage >= 100) {
+                                $color = 'bg-green-100 text-green-800';
+                                $icon = '🟩';
+                            } elseif ($percentage >= 80) {
+                                $color = 'bg-yellow-100 text-yellow-800';
+                                $icon = '🟨';
+                            } else {
+                                $color = 'bg-red-100 text-red-800';
+                                $icon = '🟥';
+                            }
+                        @endphp
+                        <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.4 + ($loop->index * 0.03) }}s">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $indikators->firstItem() + $i }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-cyan-100 flex items-center justify-center">
+                                        <svg class="h-6 w-6 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">{{ $indikator->pegawai->nama }}</div>
+                                        <div class="text-xs text-gray-500">{{ $indikator->pegawai->jabatan ?? '' }}</div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium {{ $color }}">
+                                    {{ $icon }} {{ $score }}/{{ $indikator->max_score }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="relative" x-data="{ open: false }">
+                                    <button @click="open = !open" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                        </svg>
+                                    </button>
+                                    <div x-show="open" @click.away="open = false"
+                                         class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                                        <div class="py-1">
+                                            <a href="{{ route('admin.indikator.edit', $indikator->id) }}"
+                                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                                <svg class="inline h-4 w-4 mr-2 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST">
+                                                @csrf @method('DELETE')
+                                                <button type="submit"
+                                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        onclick="return confirm('Hapus data indikator ini?')">
+                                                    <svg class="inline h-4 w-4 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 @endif
 
