@@ -1,0 +1,7 @@
+{
+    "name": "Dashboard Kinerja",
+    "short_name": "Kinerja",
+    "theme_color": "#0e7490",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

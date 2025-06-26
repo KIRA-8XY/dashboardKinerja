@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>Dashboard Kinerja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon-new.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-new.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon-new.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ asset('favicon-new.png') }}">
+    <link rel="manifest" href="{{ asset('site-new.webmanifest') }}">
+    <meta name="theme-color" content="#0e7490">
+    
     <!-- Google Fonts & Tailwind CSS CDN -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
     <script>

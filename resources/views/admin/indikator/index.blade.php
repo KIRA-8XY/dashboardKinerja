@@ -22,16 +22,27 @@
                 </svg>
                 Tambah Indikator
             </a>
-            <form method="GET" class="flex items-center gap-2">
+            <form method="GET" class="flex items-center gap-2" onsubmit="return validateSearchForm(this)">
                 <div class="relative">
-                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari indikator/pegawai" 
-                        class="w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm transition-all duration-200" />
+                    <input type="text" name="q" id="searchInput" value="{{ request('q') }}" placeholder="Cari indikator/pegawai"
+                        class="w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm transition-all duration-200" required
+                        minlength="2" />
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                 </div>
+                <script>
+                    function validateSearchForm(form) {
+                        const searchInput = form.querySelector('input[name="q"]');
+                        if (!searchInput.value.trim()) {
+                            searchInput.focus();
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
                 <button type="submit" class="btn btn-primary focus:ring-2 focus:ring-cyan-400 transform transition-transform duration-200 hover:scale-105" aria-label="Cari">
                     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 9 7.5 7.5 0 0116.65 16.65z" />
@@ -116,10 +127,10 @@
                                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                                             </svg>
                                         </button>
-                                        <div x-show="open" @click.away="open = false" 
+                                        <div x-show="open" @click.away="open = false"
                                              class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                                             <div class="py-1">
-                                                <a href="{{ route('admin.indikator.edit', $indikator->id) }}" 
+                                                <a href="{{ route('admin.indikator.edit', $indikator->id) }}"
                                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                                     <svg class="inline h-4 w-4 mr-2 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -128,8 +139,8 @@
                                                 </a>
                                                 <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" 
-                                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+                                                    <button type="submit"
+                                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                             onclick="return confirm('Hapus data indikator ini?')">
                                                         <svg class="inline h-4 w-4 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -171,10 +182,10 @@
                                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                                     </svg>
                                 </button>
-                                <div x-show="open" @click.away="open = false" 
+                                <div x-show="open" @click.away="open = false"
                                      class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                                     <div class="py-1">
-                                        <a href="{{ route('admin.indikator.edit', $indikator->id) }}" 
+                                        <a href="{{ route('admin.indikator.edit', $indikator->id) }}"
                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             <svg class="inline h-4 w-4 mr-2 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -183,8 +194,8 @@
                                         </a>
                                         <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST">
                                             @csrf @method('DELETE')
-                                            <button type="submit" 
-                                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+                                            <button type="submit"
+                                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                     onclick="return confirm('Hapus data indikator ini?')">
                                                 <svg class="inline h-4 w-4 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

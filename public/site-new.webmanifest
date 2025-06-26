@@ -1,0 +1,14 @@
+{
+    "name": "Dashboard Kinerja",
+    "short_name": "Kinerja",
+    "icons": [
+        {
+            "src": "\/favicon-new.png",
+            "sizes": "32x32",
+            "type": "image\/png"
+        }
+    ],
+    "theme_color": "#0e7490",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
