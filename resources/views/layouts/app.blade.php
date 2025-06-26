@@ -166,9 +166,11 @@
                 </nav>
             </div>
             <div class="px-4 py-4 border-t sticky bottom-0">
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
                     @csrf
-                    <button class="w-full px-4 py-2 rounded bg-cyan-600 text-white hover:bg-cyan-700 font-semibold">Keluar</button>
+                    <button type="submit" class="w-full px-4 py-2 rounded bg-cyan-600 text-white hover:bg-cyan-700 font-semibold transition-colors">
+                        Keluar
+                    </button>
                 </form>
             </div>
         </aside>
