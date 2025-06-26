@@ -1,6 +1,8 @@
 {{-- filepath: resources/views/admin/pegawai/index.blade.php --}}
 @extends('layouts.app')
 
+@section('title', 'Manajemen Pegawai')
+
 @section('content')
 <div class="max-w-7xl mx-auto px-4 space-y-6">
     @if(request()->has('q'))

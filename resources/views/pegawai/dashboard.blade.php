@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dashboard Pegawai')
+
 @section('content')
 <div class="max-w-5xl mx-auto animate-fade-up">
     <h1 class="text-3xl font-extrabold mb-4 text-gray-800">Dashboard Pegawai</h1>

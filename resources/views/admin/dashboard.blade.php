@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Admin Dashboard')
+
 @section('content')
 <div class="max-w-7xl mx-auto px-4 space-y-6">
     <div class="flex flex-col gap-6">

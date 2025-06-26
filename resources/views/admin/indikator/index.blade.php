@@ -1,6 +1,8 @@
 {{-- filepath: resources/views/admin/indikator/index.blade.php --}}
 @extends('layouts.app')
 
+@section('title', 'Manajemen Indikator')
+
 @section('content')
 <div class="max-w-7xl mx-auto px-4 space-y-6">
     @if(request()->has('q'))
