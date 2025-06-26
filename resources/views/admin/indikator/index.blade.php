@@ -2,11 +2,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 animate-fade-up space-y-6">
+<div class="max-w-7xl mx-auto px-4 space-y-6">
+    @if(request()->has('q'))
+    <div class="mb-4">
+        <a href="{{ route('admin.indikator.index') }}" class="inline-flex items-center text-cyan-600 hover:text-cyan-700 font-medium transition-colors duration-200">
+            <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Kembali ke Daftar Indikator
+        </a>
+    </div>
+    @endif
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 class="text-2xl font-bold text-gray-800">Manajemen Indikator</h1>
+        <h1 class="text-2xl font-bold text-gray-800 animate-fade-up" style="animation-delay: 0.1s">Manajemen Indikator</h1>
         <div class="flex flex-col sm:flex-row gap-3 items-center">
-            <a href="{{ route('admin.indikator.create') }}" class="inline-flex items-center px-4 py-2 bg-cyan-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-cyan-700 focus:bg-cyan-700 active:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-sm">
+            <a href="{{ route('admin.indikator.create') }}" class="inline-flex items-center px-4 py-2 bg-cyan-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-cyan-700 focus:bg-cyan-700 active:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-md shadow-sm animate-fade-up" style="animation-delay: 0.2s">
                 <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
@@ -15,13 +25,18 @@
             <form method="GET" class="flex items-center gap-2">
                 <div class="relative">
                     <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari indikator/pegawai" 
-                        class="w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm" />
+                        class="w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm transition-all duration-200" />
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-primary focus:ring-2 focus:ring-cyan-400 transform transition-transform duration-200 hover:scale-105" aria-label="Cari">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 9 7.5 7.5 0 0116.65 16.65z" />
+                    </svg>
+                </button>
                 <input type="hidden" name="per" value="{{ $perPage }}">
                 <input type="hidden" name="mode" value="{{ $mode }}">
             </form>
@@ -57,10 +72,10 @@
             </form>
         </div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-up" style="animation-delay: 0.3s">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
-                <tr>
+                <tr class="transition-all duration-200">
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Indikator</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pegawai</th>
@@ -72,11 +87,11 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @if($grouped)
                     @foreach($grouped as $groupKey => $rows)
-                        <tr class="bg-cyan-50">
+                        <tr class="bg-cyan-50 animate-fade-up" style="animation-delay: {{ 0.4 + ($loop->index * 0.05) }}s">
                             <td colspan="6" class="px-4 py-2 font-semibold text-cyan-700">{{ $groupKey }}</td>
                         </tr>
                         @foreach($rows as $indikator)
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.45 + ($loop->parent->index * 0.05) + ($loop->index * 0.03) }}s">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -131,7 +146,7 @@
                     @endforeach
                 @else
                     @foreach($indikators as $i => $indikator)
-                    <tr class="hover:bg-gray-50 transition-colors">
+                    <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.4 + ($loop->index * 0.03) }}s">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $indikators->firstItem() + $i }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">

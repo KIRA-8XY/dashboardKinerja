@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 space-y-6 animate-fade-up">
+<div class="max-w-7xl mx-auto px-4 space-y-6">
     <div class="flex flex-col gap-6">
-        <h1 class="text-2xl font-bold text-gray-800">Dashboard Admin</h1>
+        <h1 class="text-2xl font-bold text-gray-800 animate-fade-up" style="animation-delay: 0.1s">Dashboard Admin</h1>
 
         <!-- Welcome Card -->
-        <div class="p-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 shadow-sm border border-cyan-100">
+        <div class="p-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 shadow-sm border border-cyan-100 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-md animate-fade-up" style="animation-delay: 0.2s">
             <div class="flex items-center gap-3">
-                <div class="p-2 bg-white/20 rounded-lg">
+                <div class="p-2 bg-white/20 rounded-lg transition-transform duration-300 hover:scale-110">
                     <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
