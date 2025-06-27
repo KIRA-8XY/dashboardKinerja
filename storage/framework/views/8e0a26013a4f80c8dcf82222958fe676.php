@@ -63,7 +63,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 <?php $__currentLoopData = $pegawais; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $pegawai): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] group animate-fade-up" style="animation-delay: <?php echo e(0.4 + ($loop->index * 0.03)); ?>s">
+                <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200" :class="{'relative z-10': open}">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo e($pegawais->firstItem() + $i); ?></td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
@@ -81,21 +81,42 @@
                         <div class="text-sm text-gray-900"><?php echo e($pegawai->jabatan ?? '-'); ?></div>
                         <div class="text-xs text-gray-400 italic"><?php echo e(empty($pegawai->jabatan) ? 'Jabatan belum diisi' : ''); ?></div>
                     </td>
-                    <td class="w-10 px-2 py-4 whitespace-nowrap relative z-20">
-                        <div class="inline-block text-left" x-data="{ open<?php echo e($pegawai->id); ?>: false }">
-                            <button @click="open<?php echo e($pegawai->id); ?> = !open<?php echo e($pegawai->id); ?>" class="p-1 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" />
-                                </svg>
-                            </button>
-
-                            <div x-show="open<?php echo e($pegawai->id); ?>" @click.away="open<?php echo e($pegawai->id); ?> = false" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                                <div class="py-1">
-                                    <a href="<?php echo e(route('admin.pegawai.edit', $pegawai->id)); ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
-                                    <form action="<?php echo e(route('admin.pegawai.destroy', $pegawai->id)); ?>" method="POST" class="block w-full text-left">
+                    <td class="px-6 py-4 whitespace-nowrap text-right relative" :class="{'z-10': open}">
+                        <div @keydown.escape.stop="open = false" @click.away="open = false" class="inline-block text-left">
+                            <div>
+                                <button @click="open = !open" type="button" class="p-1 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-gray-100" id="menu-button-<?php echo e($pegawai->id); ?>" aria-expanded="true" aria-haspopup="true">
+                                    <span class="sr-only">Open options</span>
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div x-show="open"
+                                 x-transition:enter="transition ease-out duration-100"
+                                 x-transition:enter-start="transform opacity-0 scale-95"
+                                 x-transition:enter-end="transform opacity-100 scale-100"
+                                 x-transition:leave="transition ease-in duration-75"
+                                 x-transition:leave-start="transform opacity-100 scale-100"
+                                 x-transition:leave-end="transform opacity-0 scale-95"
+                                 class="absolute right-0 z-20 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button-<?php echo e($pegawai->id); ?>" tabindex="-1"
+                                 style="display: none;">
+                                <div class="py-1" role="none">
+                                    <a href="<?php echo e(route('admin.pegawai.edit', $pegawai->id)); ?>" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-0-<?php echo e($pegawai->id); ?>">
+                                        <svg class="mr-3 h-5 w-5 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                        </svg>
+                                        <span class="ml-2">Edit</span>
+                                    </a>
+                                    <form action="<?php echo e(route('admin.pegawai.destroy', $pegawai->id)); ?>" method="POST" role="none">
                                         <?php echo csrf_field(); ?>
                                         <?php echo method_field('DELETE'); ?>
-                                        <button type="submit" class="w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100" onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
+                                        <button type="submit" class="group flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-100" role="menuitem" tabindex="-1" id="menu-item-1-<?php echo e($pegawai->id); ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">
+                                            <svg class="mr-3 h-5 w-5 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                            </svg>
+                                            <span class="ml-2">Hapus</span>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
