@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function index()
     {
         $query = Pegawai::with(['indikators' => function($query) {
-            $query->select('id', 'pegawai_id', 'name', 'target', 'realisasi', 'max_score', 'score');
+            $query->where('target', '>', 0);
         }]);
 
         // Hanya devadmin yang bisa melihat pegawai id 99

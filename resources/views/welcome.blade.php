@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard Kinerja</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon-new.svg') }}">
     <link rel="icon" type="image/png" href="{{ asset('favicon-new.png') }}">
@@ -12,17 +12,17 @@
     <link rel="apple-touch-icon" href="{{ asset('favicon-new.png') }}">
     <link rel="manifest" href="{{ asset('site-new.webmanifest') }}">
     <meta name="theme-color" content="#0e7490">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
+            from {
+                opacity: 0;
                 transform: translateY(20px);
             }
-            to { 
-                opacity: 1; 
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
         }
@@ -30,13 +30,13 @@
             opacity: 0;
             animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
         }
-        
+
         /* Smooth page load */
         body {
             opacity: 0;
             animation: fadeIn 0.5s ease-out 0.1s forwards;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -64,17 +64,17 @@
                 Dashboard Kinerja
             </h2>
         </div>
-        
+
         <p class="text-gray-600 text-center mb-8 leading-relaxed">
             Silakan login sebagai pegawai atau admin untuk memantau dan memperbarui kinerja.
         </p>
-        
+
         <div class="space-y-4">
-            <a href="{{ route('login') }}" 
+            <a href="{{ route('login') }}"
                class="block w-full px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium rounded-lg text-center transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg">
                 Masuk ke Akun
             </a>
-            <a href="{{ route('register') }}" 
+            <a href="{{ route('register') }}"
                class="block w-full px-6 py-2.5 border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 font-medium rounded-lg text-center transition-all duration-300 transform hover:-translate-y-0.5">
                 Daftar Akun Baru
             </a>

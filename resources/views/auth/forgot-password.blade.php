@@ -1,53 +1,58 @@
 <x-guest-layout>
-    <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 max-w-md w-full mx-auto transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl animate-fade-up">
-        <div class="text-center mb-8">
-            <div class="h-16 w-16 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Lupa</h2>
-            <h3 class="text-3xl font-extrabold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                Kata Sandi
-            </h3>
-        </div>
-
-        <p class="text-gray-600 text-center mb-6">
-            Masukkan email Anda dan kami akan mengirimkan link untuk mengatur ulang kata sandi.
-        </p>
-
-        @if (session('status'))
-            <div class="mb-6 p-3 bg-green-50 text-green-600 rounded-lg text-sm">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
-            @csrf
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-700">Email</label>
-                <input type="email" name="email" required autofocus
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200"
-                    value="{{ old('email') }}" placeholder="email@contoh.com">
-                @error('email')
-                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-cyan-900 via-blue-900 to-blue-900">
+        <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 sm:p-12 mx-4 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl animate-fade-up">
+            <div class="text-center mb-8">
+                <div class="h-16 w-16 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Lupa Kata Sandi?</h2>
+                <p class="text-gray-600">Masukkan email Anda dan kami akan mengirimkan link untuk mereset kata sandi Anda.</p>
             </div>
 
-            <div>
-                <button type="submit"
-                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg">
-                    Kirim Link Reset Password
-                </button>
-            </div>
-        </form>
+            @if (session('status'))
+                <div class="mb-6 p-4 rounded-lg bg-green-50 border border-green-200">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-green-700">{{ session('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
-        <div class="mt-6 text-center text-sm text-gray-600">
-            Ingat kata sandi Anda?
-            <a href="{{ route('login') }}" class="font-medium text-cyan-600 hover:text-cyan-500 hover:underline">
-                Masuk di sini
-            </a>
+            <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
+                @csrf
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <div class="mt-1">
+                        <input type="email" name="email" value="{{ old('email') }}" required autofocus
+                            class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent sm:text-sm transition duration-150 ease-in-out">
+                        @error('email')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
+                        Kirim Link Reset Kata Sandi
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 flex items-center justify-center space-x-2 text-sm text-gray-600">
+                <a href="{{ route('login') }}" 
+                   class="font-medium text-cyan-600 hover:text-cyan-500 transition duration-150 ease-in-out">
+                    Kembali ke halaman login
+                </a>
+            </div>
         </div>
     </div>
 </x-guest-layout>

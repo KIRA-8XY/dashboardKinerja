@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             IndikatorSeeder::class,
             RiwayatKinerjaSeeder::class,
+            TestReduceIndikatorsSeeder::class,
         ]);
     }
 

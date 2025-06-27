@@ -85,7 +85,7 @@
             </form>
         </div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-up" style="animation-delay: 0.3s">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible animate-fade-up" style="animation-delay: 0.3s">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr class="transition-all duration-200">
@@ -108,19 +108,16 @@
                             @php
                                 $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
                                 $score = round(($percentage / 100) * $indikator->max_score, 2);
-                                
+
                                 if ($percentage >= 100) {
                                     $color = 'bg-green-100 text-green-800';
-                                    $icon = '🟩';
                                 } elseif ($percentage >= 80) {
                                     $color = 'bg-yellow-100 text-yellow-800';
-                                    $icon = '🟨';
                                 } else {
                                     $color = 'bg-red-100 text-red-800';
-                                    $icon = '🟥';
                                 }
                             @endphp
-                            <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.45 + ($loop->parent->index * 0.05) + ($loop->index * 0.03) }}s">
+                            <tr class="hover:bg-gray-50 transition-colors duration-200">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -139,34 +136,45 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 rounded-full text-xs font-medium {{ $color }}">
-                                        {{ $icon }} {{ $score }}/{{ $indikator->max_score }}
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $color }}">
+                                        {{ $score }}/{{ $indikator->max_score }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="relative" x-data="{ open: false }">
-                                        <button @click="open = !open" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                <td class="px-6 py-4 whitespace-nowrap relative">
+                                    <div class="relative inline-block text-left" x-data="{ open{{ $indikator->id }}: false }">
+                                        <button @click="open{{ $indikator->id }} = !open{{ $indikator->id }}"
+                                                class="p-1 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" />
                                             </svg>
                                         </button>
-                                        <div x-show="open" @click.away="open = false"
-                                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+
+                                        <div x-show="open{{ $indikator->id }}"
+                                             @click.away="open{{ $indikator->id }} = false"
+                                             x-transition:enter="transition ease-out duration-100"
+                                             x-transition:enter-start="transform opacity-0 scale-95"
+                                             x-transition:enter-end="transform opacity-100 scale-100"
+                                             x-transition:leave="transition ease-in duration-75"
+                                             x-transition:leave-start="transform opacity-100 scale-100"
+                                             x-transition:leave-end="transform opacity-0 scale-95"
+                                             class="fixed z-[9999] mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                                             style="margin-top: 0.5rem; right: 1rem;">
                                             <div class="py-1">
                                                 <a href="{{ route('admin.indikator.edit', $indikator->id) }}"
-                                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                    <svg class="inline h-4 w-4 mr-2 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                   class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                                    <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                     </svg>
                                                     Edit
                                                 </a>
                                                 <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST">
-                                                    @csrf @method('DELETE')
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button type="submit"
-                                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                            onclick="return confirm('Hapus data indikator ini?')">
-                                                        <svg class="inline h-4 w-4 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            class="group flex w-full items-center px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus indikator ini?')">
+                                                        <svg class="mr-3 h-5 w-5 text-red-400 group-hover:text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 22H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
                                                         Hapus
                                                     </button>
@@ -183,7 +191,7 @@
                         @php
                             $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
                             $score = round(($percentage / 100) * $indikator->max_score, 2);
-                            
+
                             if ($percentage >= 100) {
                                 $color = 'bg-green-100 text-green-800';
                                 $icon = '🟩';
@@ -195,7 +203,7 @@
                                 $icon = '🟥';
                             }
                         @endphp
-                        <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up" style="animation-delay: {{ 0.4 + ($loop->index * 0.03) }}s">
+                        <tr class="hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.005] animate-fade-up relative z-0" style="animation-delay: {{ 0.4 + ($loop->index * 0.03) }}s">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $indikators->firstItem() + $i }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -214,34 +222,32 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-1 rounded-full text-xs font-medium {{ $color }}">
-                                    {{ $icon }} {{ $score }}/{{ $indikator->max_score }}
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $color }}">
+                                    {{ $score }}/{{ $indikator->max_score }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="relative" x-data="{ open: false }">
-                                    <button @click="open = !open" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                            <td class="px-6 py-4 whitespace-nowrap relative z-0" style="z-index: 0; overflow: visible;">
+                                <div class="inline-block text-left relative z-10" x-data="{ open{{ $indikator->id }}: false }">
+                                    <button @click="open{{ $indikator->id }} = !open{{ $indikator->id }}" class="p-1 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none relative z-20" style="z-index: 20;">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" />
                                         </svg>
                                     </button>
-                                    <div x-show="open" @click.away="open = false"
-                                         class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+
+                                    <div x-show="open{{ $indikator->id }}" @click.away="open{{ $indikator->id }} = false" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" style="z-index: 50; transform: translateX(10px)">
                                         <div class="py-1">
-                                            <a href="{{ route('admin.indikator.edit', $indikator->id) }}"
-                                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <a href="{{ route('admin.indikator.edit', $indikator->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                                 <svg class="inline h-4 w-4 mr-2 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                                 Edit
                                             </a>
-                                            <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST">
-                                                @csrf @method('DELETE')
-                                                <button type="submit"
-                                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        onclick="return confirm('Hapus data indikator ini?')">
-                                                    <svg class="inline h-4 w-4 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            <form action="{{ route('admin.indikator.destroy', $indikator->id) }}" method="POST" class="block w-full text-left">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100 text-left" onclick="return confirm('Apakah Anda yakin ingin menghapus indikator ini?')">
+                                                    <svg class="inline h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 22H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
                                                     Hapus
                                                 </button>
