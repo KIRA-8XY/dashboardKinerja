@@ -4,12 +4,13 @@
 
 @section('content')
 <div class="max-w-5xl mx-auto animate-fade-up">
-    <h1 class="text-3xl font-extrabold mb-4 text-gray-800">Dashboard Pegawai</h1>
-    <div class="flex items-center gap-4 p-4 mb-6 bg-cyan-50 rounded-xl shadow-inner transition-all duration-300 hover:shadow-md hover:ring-2 hover:ring-cyan-100 hover:bg-white">
-        <div class="h-12 w-12 rounded-full bg-cyan-100 flex items-center justify-center text-2xl">👋</div>
-        <div>
-            <p class="text-lg text-gray-700">Halo,</p>
-            <p class="text-xl font-semibold text-gray-800">{{ $pegawai->nama }}</p>
+    <h1 class="text-2xl font-bold mb-12 text-gray-900">Dashboard Pegawai</h1>
+    <div class="mb-12">
+        <div class="flex items-start gap-4">
+            <div>
+                <p class="text-3xl text-gray-600 mb-1">Halo,</p>
+                <p class="text-4xl font-bold text-gray-900">{{ $pegawai->nama }}</p>
+            </div>
         </div>
     </div>
     @php
@@ -18,64 +19,78 @@
     $green_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-success')->count();
     $yellow_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-warning')->count();
     $red_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-danger')->count();
-    $total_score = $indikators->sum(fn($i) => $i->kpi_score['nilai']);
-@endphp
-<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
-        <!-- Total Indikator -->
-        <div class="relative p-6 rounded-xl text-white shadow-lg bg-gradient-to-br from-cyan-500 to-sky-600 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 transform motion-safe:animate-fadeInUp" style="animation-delay: 100ms">
-            <div class="absolute right-3 bottom-3 opacity-30 transition-opacity duration-300 hover:opacity-50">
-                <svg class="h-16 w-16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
-                </svg>
+    @endphp
+    <!-- First Row: Main Summary Cards -->
+    <div class="flex justify-center mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-4xl">
+            <!-- Total Indikator -->
+            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
+                <div>
+                    <span class="text-2xl font-bold">{{ $indikators->count() }}</span>
+                    <p class="text-sm font-medium">Total Indikator</p>
+                </div>
+                <div class="opacity-30">
+                    <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                    </svg>
+                </div>
             </div>
-            <span class="text-4xl font-extrabold">{{ $indikators->count() }}</span>
-            <p class="mt-2 text-sm font-medium">Total Indikator</p>
-        </div>
-
-        <!-- Total Realisasi -->
-        <div class="relative p-6 rounded-xl text-white shadow-lg bg-gradient-to-br from-emerald-500 to-green-600 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 transform motion-safe:animate-fadeInUp" style="animation-delay: 200ms">
-            <div class="absolute right-3 bottom-3 opacity-30 transition-opacity duration-300 hover:opacity-50">
-                <svg class="h-16 w-16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            <!-- Total Realisasi -->
+            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
+                <div>
+                    <span class="text-2xl font-bold">{{ number_format($indikators->sum('realisasi')) }}</span>
+                    <p class="text-sm font-medium">Total Realisasi</p>
+                </div>
+                <div class="opacity-30">
+                    <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
             </div>
-            <span class="text-4xl font-extrabold">{{ number_format($indikators->sum('realisasi')) }}</span>
-            <p class="mt-2 text-sm font-medium">Total Realisasi</p>
-        </div>
-
-        <!-- Rata-rata KPI -->
-        <div class="relative p-6 rounded-xl text-white shadow-lg bg-gradient-to-br from-amber-400 to-yellow-500 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 transform motion-safe:animate-fadeInUp" style="animation-delay: 300ms">
-            <div class="absolute right-3 bottom-3 opacity-30 transition-opacity duration-300 hover:opacity-50">
-                <svg class="h-16 w-16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <!-- Rata-rata KPI -->
+            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
+                <div>
+                    <span class="text-2xl font-bold">{{ $avgKpi }}</span>
+                    <p class="text-sm font-medium">Rata-rata KPI</p>
+                </div>
+                <div class="opacity-30">
+                    <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
             </div>
-            <span class="text-4xl font-extrabold">{{ $avgKpi }}</span>
-            <p class="mt-2 text-sm font-medium">Rata-rata KPI</p>
         </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-        <div class="card-wrapper bg-white rounded-2xl shadow-md p-6">
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Skor</h3>
-            <p class="text-3xl font-bold text-cyan-600">{{ number_format($total_score, 2) }}</p>
-        </div>
-        
-        <div class="card-wrapper bg-emerald-500 text-white rounded-2xl shadow-md p-6">
-            <h3 class="text-lg font-semibold mb-2">KPI Hijau</h3>
-            <p class="text-3xl font-bold">{{ $green_kpis }}</p>
-        </div>
-        
-        <div class="card-wrapper bg-amber-500 text-white rounded-2xl shadow-md p-6">
-            <h3 class="text-lg font-semibold mb-2">KPI Kuning</h3>
-            <p class="text-3xl font-bold">{{ $yellow_kpis }}</p>
-        </div>
-        
-        <div class="card-wrapper bg-rose-500 text-white rounded-2xl shadow-md p-6">
-            <h3 class="text-lg font-semibold mb-2">KPI Merah</h3>
-            <p class="text-3xl font-bold">{{ $red_kpis }}</p>
+
+    <!-- Second Row: Detailed Stats -->
+    <div class="flex justify-center mb-6">
+        <div class="flex flex-wrap gap-6 w-full max-w-4xl">
+            <!-- Total Skor -->
+            <div class="flex-1 min-w-[150px] bg-white rounded-xl shadow-lg p-4 flex flex-col items-center justify-center transform transition-transform hover:scale-105">
+                <h3 class="text-md font-semibold text-gray-500">Total Skor</h3>
+                <p class="text-3xl font-bold text-cyan-600">{{ number_format($total_score, 2) }}</p>
+            </div>
+            <!-- Hijau -->
+            <div class="flex-1 min-w-[150px] bg-white rounded-xl shadow-lg p-4 flex flex-col items-center justify-center transform transition-transform hover:scale-105">
+                <div class="w-6 h-6 rounded-full bg-green-500 mb-1"></div>
+                <div class="text-md font-semibold text-green-800">Hijau</div>
+                <div class="text-xl font-bold text-green-800">{{ $green_kpis }}</div>
+            </div>
+            <!-- Kuning -->
+            <div class="flex-1 min-w-[150px] bg-white rounded-xl shadow-lg p-4 flex flex-col items-center justify-center transform transition-transform hover:scale-105">
+                <div class="w-6 h-6 rounded-full bg-yellow-500 mb-1"></div>
+                <div class="text-md font-semibold text-yellow-800">Kuning</div>
+                <div class="text-xl font-bold text-yellow-800">{{ $yellow_kpis }}</div>
+            </div>
+            <!-- Merah -->
+            <div class="flex-1 min-w-[150px] bg-white rounded-xl shadow-lg p-4 flex flex-col items-center justify-center transform transition-transform hover:scale-105">
+                <div class="w-6 h-6 rounded-full bg-red-500 mb-1"></div>
+                <div class="text-md font-semibold text-red-800">Merah</div>
+                <div class="text-xl font-bold text-red-800">{{ $red_kpis }}</div>
+            </div>
         </div>
     </div>
-    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl transform motion-safe:animate-fadeInUp" style="animation-delay: 400ms">
+    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl transform motion-safe:animate-fadeInUp mt-8" style="animation-delay: 400ms">
         <div class="px-6 py-4 border-b border-gray-200">
             <h3 class="text-lg font-medium text-gray-900">Daftar Indikator Kinerja</h3>
         </div>
@@ -87,7 +102,7 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Realisasi</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">% Realisasi</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">KPI</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Score/Max</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -106,10 +121,19 @@
                             {{ number_format($indikator->persen_realisasi, 2) }}%
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                {{ $indikator->kpi_score['warna'] == 'bg-success' ? 'bg-green-100 text-green-800' : 
-                                   ($indikator->kpi_score['warna'] == 'bg-warning' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                                {{ $indikator->kpi_score['nilai'] }}
+                            @php
+                                $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
+                                $score = round(($percentage / 100) * $indikator->max_score, 2);
+                                if ($percentage >= 100) {
+                                    $color = 'bg-green-100 text-green-800';
+                                } elseif ($percentage >= 80) {
+                                    $color = 'bg-yellow-100 text-yellow-800';
+                                } else {
+                                    $color = 'bg-red-100 text-red-800';
+                                }
+                            @endphp
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $color }}">
+                                {{ $score }}/{{ $indikator->max_score }}
                             </span>
                         </td>
                     </tr>
@@ -120,3 +144,17 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    @keyframes wave {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-15deg); }
+        75% { transform: rotate(15deg); }
+    }
+    .animate-wave {
+        animation: wave 2s ease-in-out infinite;
+        transform-origin: bottom center;
+    }
+</style>
+@endpush

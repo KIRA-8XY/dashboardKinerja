@@ -22,14 +22,14 @@ class PegawaiController extends Controller
         }
 
         $indikators = $pegawai->indikators()->paginate(10);
-
-        return view('pegawai.dashboard', compact('pegawai', 'indikators'));
+        $total_score = $pegawai->indikators->sum('score');
+        return view('pegawai.dashboard', compact('pegawai', 'indikators', 'total_score'));
     }
 
     public function dashboard()
     {
         $indikators = auth()->user()->indikators;
-        
+
         $green_kpis = $indikators->filter(function($indikator) {
             $percentage = ($indikator->realisasi / $indikator->target) * 100;
             return $percentage >= 100;
