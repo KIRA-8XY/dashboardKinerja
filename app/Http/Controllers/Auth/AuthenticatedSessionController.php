@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
 
         // If role not recognized, log out and go back to login
         Auth::logout();
-        return redirect('/login')->withErrors(['email' => 'Role tidak dikenali.']);
+        return redirect('/login')->withErrors(['username' => 'Role tidak dikenali.']);
     }
 
     /**

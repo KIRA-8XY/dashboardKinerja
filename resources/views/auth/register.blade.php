@@ -16,50 +16,27 @@
             <form method="POST" action="{{ route('register') }}" class="space-y-6">
                 @csrf
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Nama</label>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <div class="mt-1">
-                        <input type="text" name="name" value="{{ old('name') }}" required autofocus
+                        <input id="username" type="text" name="username" value="{{ old('username') }}" required autofocus
                             class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent sm:text-sm transition duration-150 ease-in-out">
-                        @error('name')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                        <x-input-error :messages="$errors->get('username')" class="mt-2" />
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password Baru</label>
                     <div class="mt-1">
-                        <input type="email" name="email" value="{{ old('email') }}" required
+                        <input id="password" type="password" name="password" required
                             class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent sm:text-sm transition duration-150 ease-in-out">
-                        @error('email')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-                    <div class="mt-1">
-                        <input type="password" name="password" required
-                            class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent sm:text-sm transition duration-150 ease-in-out">
-                        @error('password')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Konfirmasi Kata Sandi</label>
-                    <div class="mt-1">
-                        <input type="password" name="password_confirmation" required
-                            class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent sm:text-sm transition duration-150 ease-in-out">
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
                 </div>
 
                 <div>
                     <button type="submit"
                         class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
-                        Daftar
+                        Simpan Password Baru
                     </button>
                 </div>
             </form>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
@@ -15,7 +17,7 @@ class PegawaiController extends Controller
     {
         $query = Pegawai::query();
         $search = $request->query('q');
-        
+
 
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -32,7 +34,7 @@ class PegawaiController extends Controller
         $pegawais = $query->orderBy('nama')->paginate(15)->withQueryString();
         return view('admin.pegawai.index', [
             'pegawais' => $pegawais,
-            
+
         ]);
     }
 
@@ -119,5 +121,23 @@ class PegawaiController extends Controller
         $pegawai->delete();
 
         return redirect()->route('admin.pegawai.index')->with('success', 'Pegawai berhasil dihapus');
+    }
+
+    /**
+     * Reset the specified user's password to default.
+     */
+    public function resetPassword($id)
+    {
+        $pegawai = Pegawai::findOrFail($id);
+        $user = User::where('pegawai_id', $pegawai->id)->first();
+
+        if ($user) {
+            $defaultPassword = ($pegawai->id == 99) ? 'passwordku' : 'password';
+            $user->password = Hash::make($defaultPassword);
+            $user->save();
+            return redirect()->route('admin.pegawai.index')->with('success', 'Password untuk ' . $pegawai->nama . ' berhasil direset.');
+        }
+
+        return redirect()->route('admin.pegawai.index')->with('error', 'User tidak ditemukan untuk pegawai ini.');
     }
 }

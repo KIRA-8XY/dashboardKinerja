@@ -41,13 +41,13 @@
                 <?php echo csrf_field(); ?>
 
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <div class="mt-1">
-                        <input id="email" name="email" type="email" required autofocus
+                        <input id="username" name="username" type="text" required autofocus
                             class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent sm:text-sm transition duration-150 ease-in-out"
-                            value="<?php echo e(old('email')); ?>"
-                            placeholder="email@contoh.com">
-                        <?php $__errorArgs = ['email'];
+                            value="<?php echo e(old('username')); ?>"
+                            placeholder="Username">
+                        <?php $__errorArgs = ['username'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -63,9 +63,6 @@ unset($__errorArgs, $__bag); ?>
                 <div>
                     <div class="flex items-center justify-between mb-2">
                         <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-                        <a href="<?php echo e(route('password.request')); ?>" class="text-sm font-medium text-cyan-600 hover:text-cyan-500">
-                            Lupa kata sandi?
-                        </a>
                     </div>
                     <div class="mt-1">
                         <input id="password" name="password" type="password" required

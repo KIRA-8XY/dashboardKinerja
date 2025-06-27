@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\Admin\PegawaiController as AdminPegawaiController;
+use App\Http\Controllers\Admin\IndikatorController as AdminIndikatorController;
 use Illuminate\Support\Facades\Route;
 
 // Route halaman utama
@@ -36,8 +38,10 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
 
 // Admin CRUD Pegawai & Indikator
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('pegawai', \App\Http\Controllers\Admin\PegawaiController::class);
-    Route::resource('indikator', \App\Http\Controllers\Admin\IndikatorController::class);
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::resource('pegawai', AdminPegawaiController::class);
+    Route::post('pegawai/{pegawai}/reset-password', [AdminPegawaiController::class, 'resetPassword'])->name('pegawai.reset-password');
+    Route::resource('indikator', AdminIndikatorController::class);
 });
 
 // Pegawai CRUD Indikator & Riwayat Kinerja

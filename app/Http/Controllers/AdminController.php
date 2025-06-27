@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
         $query = Pegawai::with(['indikators' => function($query) {
             $query->where('target', '>', 0);
