@@ -141,7 +141,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-right relative" :class="{'z-10': open}">
                                     <div @keydown.escape.stop="open = false" @click.away="open = false" class="inline-block text-left">
                                         <div>
-                                            <button @click="open = !open" type="button" class="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-100 p-1" id="menu-button-<?php echo e($indikator->id); ?>" aria-expanded="true" aria-haspopup="true">
+                                            <button @click="open = !open" type="button" class="p-1 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-gray-100" id="menu-button-<?php echo e($indikator->id); ?>" aria-expanded="true" aria-haspopup="true">
                                                 <span class="sr-only">Open options</span>
                                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
@@ -217,7 +217,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-right relative" :class="{'z-10': open}">
                                 <div @keydown.escape.stop="open = false" @click.away="open = false" class="inline-block text-left">
                                     <div>
-                                        <button @click="open = !open" type="button" class="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-100 p-1" id="menu-button-<?php echo e($indikator->id); ?>" aria-expanded="true" aria-haspopup="true">
+                                        <button @click="open = !open" type="button" class="p-1 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-gray-100" id="menu-button-<?php echo e($indikator->id); ?>" aria-expanded="true" aria-haspopup="true">
                                             <span class="sr-only">Open options</span>
                                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
