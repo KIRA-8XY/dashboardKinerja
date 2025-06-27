@@ -8,7 +8,7 @@
                     </svg>
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Buat Akun</h2>
-                <h1 class="text-3xl font-extrabold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                <h1 class="text-3xl font-extrabold bg-clip-text text-transparent">
                     Dashboard Kinerja
                 </h1>
             </div>
@@ -58,7 +58,7 @@
 
                 <div>
                     <button type="submit"
-                        class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
                         Daftar
                     </button>
                 </div>
@@ -66,7 +66,7 @@
 
             <div class="mt-6 flex items-center justify-center space-x-2 text-sm text-gray-600">
                 <span>Sudah punya akun?</span>
-                <a href="{{ route('login') }}" 
+                <a href="{{ route('login') }}"
                    class="font-medium text-cyan-600 hover:text-cyan-500 transition duration-150 ease-in-out">
                     Masuk di sini
                 </a>

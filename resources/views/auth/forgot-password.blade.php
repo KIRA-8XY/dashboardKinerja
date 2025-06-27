@@ -41,14 +41,14 @@
 
                 <div>
                     <button type="submit"
-                        class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
                         Kirim Link Reset Kata Sandi
                     </button>
                 </div>
             </form>
 
             <div class="mt-6 flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <a href="{{ route('login') }}" 
+                <a href="{{ route('login') }}"
                    class="font-medium text-cyan-600 hover:text-cyan-500 transition duration-150 ease-in-out">
                     Kembali ke halaman login
                 </a>
