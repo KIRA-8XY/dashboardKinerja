@@ -63,11 +63,15 @@
 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <input id="remember" name="remember" type="checkbox"
-                            class="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 transition duration-150 ease-in-out">
-                        <label for="remember" class="ml-2 block text-sm text-gray-700">
-                            Ingat saya
-                        </label>
+                        <div class="flex items-center h-5">
+                            <input id="remember" name="remember" type="checkbox"
+                                class="w-4 h-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 focus:ring-offset-0">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="remember" class="font-medium text-gray-700 select-none">
+                                Ingat saya
+                            </label>
+                        </div>
                     </div>
                 </div>
 
