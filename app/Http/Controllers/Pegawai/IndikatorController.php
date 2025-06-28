@@ -33,13 +33,12 @@ class IndikatorController extends Controller
     {
         $request->validate([
             'nama_indikator' => 'required|string|max:255',
-            'target' => 'required|numeric',
             'realisasi' => 'required|numeric',
         ]);
         Indikator::create([
             'pegawai_id' => Auth::user()->pegawai_id,
             'nama_indikator' => $request->nama_indikator,
-            'target' => $request->target,
+            'target' => 0,
             'realisasi' => $request->realisasi,
         ]);
         return redirect()->route('pegawai.indikator.index')->with('success', 'Indikator berhasil ditambah');
@@ -70,10 +69,9 @@ class IndikatorController extends Controller
         $indikator = Indikator::where('pegawai_id', Auth::user()->pegawai_id)->findOrFail($id);
         $request->validate([
             'nama_indikator' => 'required|string|max:255',
-            'target' => 'required|numeric',
             'realisasi' => 'required|numeric',
         ]);
-        $indikator->update($request->only(['nama_indikator', 'target', 'realisasi']));
+        $indikator->update($request->except('target'));
         return redirect()->route('pegawai.indikator.index')->with('success', 'Indikator berhasil diupdate');
     }
 

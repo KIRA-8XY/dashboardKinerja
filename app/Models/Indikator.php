@@ -10,7 +10,7 @@ class Indikator extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
+        'nama_indikator',
         'target',
         'realisasi',
         'max_score',
@@ -30,7 +30,7 @@ class Indikator extends Model
             $this->score = 0;
             return;
         }
-        
+
         $percentage = min(100, ($this->realisasi / $this->target) * 100);
         $this->score = round(($percentage / 100) * $this->max_score, 2);
         $this->save();
@@ -39,9 +39,9 @@ class Indikator extends Model
     public function getColorClass()
     {
         if ($this->target == 0) return 'bg-gray-100 text-gray-800';
-        
+
         $percentage = ($this->realisasi / $this->target) * 100;
-        
+
         if ($percentage >= 100) return 'bg-green-100 text-green-800';
         if ($percentage >= 80) return 'bg-yellow-100 text-yellow-800';
         return 'bg-red-100 text-red-800';

@@ -12,18 +12,20 @@
         </div>
     </div>
     <?php
-    $totalKpi = $indikators->sum(fn($i) => $i->kpi_score['nilai']);
-    $avgKpi = count($indikators) > 0 ? round($totalKpi / count($indikators), 1) : 0;
+    $active_indikators = $indikators->where('target', '>', 0);
+    $total_achievement_percentage = $active_indikators->sum(fn($i) => ($i->realisasi / $i->target) * 100);
+    $average_achievement_percentage = count($active_indikators) > 0 ? $total_achievement_percentage / count($active_indikators) : 0;
+
     $green_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-success')->count();
     $yellow_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-warning')->count();
     $red_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-danger')->count();
 
     $max_possible_score = $indikators->sum('max_score');
-    $percentage = $max_possible_score > 0 ? ($total_score / $max_possible_score) * 100 : 0;
+    $overall_performance_percentage = $max_possible_score > 0 ? ($total_score / $max_possible_score) * 100 : 0;
 
-    if ($percentage >= 100) {
+    if ($overall_performance_percentage >= 90) {
         $score_color = 'text-green-800';
-    } elseif ($percentage >= 80) {
+    } elseif ($overall_performance_percentage >= 70) {
         $score_color = 'text-yellow-800';
     } else {
         $score_color = 'text-red-800';
@@ -44,27 +46,28 @@
                     </svg>
                 </div>
             </div>
-            <!-- Total Realisasi -->
-            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
+            <!-- Overall Performance -->
+            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
                 <div>
-                    <span class="text-2xl font-bold"><?php echo e(number_format($indikators->sum('realisasi'))); ?></span>
-                    <p class="text-sm font-medium">Total Realisasi</p>
+                    <span class="text-2xl font-bold"><?php echo e(number_format($overall_performance_percentage, 1)); ?>%</span>
+                    <p class="text-sm font-medium">Kinerja Keseluruhan</p>
                 </div>
                 <div class="opacity-30">
                     <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                 </div>
             </div>
-            <!-- Rata-rata KPI -->
-            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
+            <!-- Average Achievement -->
+            <div class="p-4 rounded-xl text-white shadow-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-between min-h-[100px] transform transition-transform hover:scale-105">
                 <div>
-                    <span class="text-2xl font-bold"><?php echo e($avgKpi); ?></span>
-                    <p class="text-sm font-medium">Rata-rata KPI</p>
+                    <span class="text-2xl font-bold"><?php echo e(number_format($average_achievement_percentage, 1)); ?>%</span>
+                    <p class="text-sm font-medium">Rata-Rata Pencapaian Indikator</p>
                 </div>
                 <div class="opacity-30">
                     <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
                 </div>
             </div>
@@ -120,33 +123,45 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900"><?php echo e($indikator->nama_indikator); ?></div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <?php echo e(number_format($indikator->target)); ?>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 <?php if($indikator->target == 0): ?> bg-[repeating-linear-gradient(-45deg,theme(colors.white),theme(colors.white)_10px,theme(colors.gray.50)_10px,theme(colors.gray.50)_20px)] <?php endif; ?>">
+                            <?php if($indikator->target == 0): ?>
+                                <span class="text-gray-400 italic text-xs">—</span>
+                            <?php else: ?>
+                                <?php echo e(number_format($indikator->target)); ?>
 
+                            <?php endif; ?>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <?php echo e(number_format($indikator->realisasi)); ?>
 
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <?php echo e(number_format($indikator->persen_realisasi, 2)); ?>%
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 <?php if($indikator->target == 0): ?> bg-[repeating-linear-gradient(-45deg,theme(colors.white),theme(colors.white)_10px,theme(colors.gray.50)_10px,theme(colors.gray.50)_20px)] <?php endif; ?>">
+                             <?php if($indikator->target == 0): ?>
+                                <span class="text-gray-400 italic text-xs">—</span>
+                            <?php else: ?>
+                                <?php echo e(number_format($indikator->persen_realisasi, 2)); ?>%
+                            <?php endif; ?>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <?php
-                                $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
-                                $score = round(($percentage / 100) * $indikator->max_score, 2);
-                                if ($percentage >= 100) {
-                                    $color = 'bg-green-100 text-green-800';
-                                } elseif ($percentage >= 80) {
-                                    $color = 'bg-yellow-100 text-yellow-800';
-                                } else {
-                                    $color = 'bg-red-100 text-red-800';
-                                }
-                            ?>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <?php echo e($color); ?>">
-                                <?php echo e($score); ?>/<?php echo e($indikator->max_score); ?>
+                        <td class="px-6 py-4 whitespace-nowrap text-center <?php if($indikator->target == 0): ?> bg-[repeating-linear-gradient(-45deg,theme(colors.white),theme(colors.white)_10px,theme(colors.gray.50)_10px,theme(colors.gray.50)_20px)] <?php endif; ?>">
+                            <?php if($indikator->target == 0): ?>
+                                <span class="text-gray-400 italic text-xs">—</span>
+                            <?php else: ?>
+                                <?php
+                                    $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
+                                    $score = round(($percentage / 100) * $indikator->max_score, 2);
+                                    if ($percentage >= 100) {
+                                        $color = 'bg-green-100 text-green-800';
+                                    } elseif ($percentage >= 80) {
+                                        $color = 'bg-yellow-100 text-yellow-800';
+                                    } else {
+                                        $color = 'bg-red-100 text-red-800';
+                                    }
+                                ?>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <?php echo e($color); ?>">
+                                    <?php echo e(number_format($score, 2)); ?>/<?php echo e(number_format($indikator->max_score, 2)); ?>
 
-                            </span>
+                                </span>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

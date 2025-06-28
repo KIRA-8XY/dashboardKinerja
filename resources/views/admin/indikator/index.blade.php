@@ -85,7 +85,7 @@
             </form>
         </div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible animate-fade-up" style="animation-delay: 0.3s">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr class="transition-all duration-200">

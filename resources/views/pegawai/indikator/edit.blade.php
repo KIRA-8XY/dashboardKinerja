@@ -12,7 +12,7 @@
         </div>
         <div class="mb-4">
             <label>Target</label>
-            <input type="number" name="target" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" value="{{ $indikator->target }}" required>
+            <input type="number" name="target" class="w-full rounded border border-gray-300 px-4 py-2 bg-gray-100 focus:outline-none focus:ring-0" value="{{ $indikator->target }}" readonly>
         </div>
         <div class="mb-4">
             <label>Realisasi</label>

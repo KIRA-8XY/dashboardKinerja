@@ -1,11 +1,8 @@
-{{-- filepath: resources/views/pegawai/indikator/create.blade.php --}}
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="max-w-5xl mx-auto animate-fade-up">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Tambah Indikator</h1>
-    <form action="{{ route('pegawai.indikator.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('pegawai.indikator.store')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
         <div class="mb-4">
             <label>Nama Indikator</label>
             <input type="text" name="nama_indikator" class="w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
@@ -15,7 +12,9 @@
             <input type="number" name="realisasi" class="w-full rounded border border-cyan-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
         </div>
         <button type="submit" class="px-4 py-2 rounded bg-cyan-600 text-white font-semibold hover:bg-cyan-700 transition">Simpan</button>
-        <a href="{{ route('pegawai.indikator.index') }}" class="px-4 py-2 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition">Batal</a>
+        <a href="<?php echo e(route('pegawai.indikator.index')); ?>" class="px-4 py-2 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition">Batal</a>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/dashboardKinerja/resources/views/pegawai/indikator/create.blade.php ENDPATH**/ ?>
