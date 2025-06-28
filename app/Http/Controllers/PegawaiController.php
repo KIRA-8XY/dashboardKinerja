@@ -28,19 +28,34 @@ class PegawaiController extends Controller
 
     public function dashboard()
     {
-        $indikators = auth()->user()->indikators;
+        $pegawai = auth()->user()->pegawai;
+
+        if (!$pegawai) {
+            // Handle case where user does not have an associated pegawai record
+            return redirect()->route('login')->with('error', 'Tidak ada data pegawai yang terkait dengan akun Anda.');
+        }
+
+        $indikators = $pegawai->indikators;
+
+        if (is_null($indikators)) {
+            // Handle case where indikators are null
+            $indikators = collect(); // Use an empty collection
+        }
 
         $green_kpis = $indikators->filter(function($indikator) {
+            if ($indikator->target == 0) return false;
             $percentage = ($indikator->realisasi / $indikator->target) * 100;
             return $percentage >= 100;
         })->count();
 
         $yellow_kpis = $indikators->filter(function($indikator) {
+            if ($indikator->target == 0) return false;
             $percentage = ($indikator->realisasi / $indikator->target) * 100;
             return $percentage >= 80 && $percentage < 100;
         })->count();
 
         $red_kpis = $indikators->filter(function($indikator) {
+            if ($indikator->target == 0) return false;
             $percentage = ($indikator->realisasi / $indikator->target) * 100;
             return $percentage < 80;
         })->count();
@@ -48,6 +63,7 @@ class PegawaiController extends Controller
         $total_score = $indikators->sum('score');
 
         return view('pegawai.dashboard', compact(
+            'pegawai',
             'indikators',
             'green_kpis',
             'yellow_kpis',

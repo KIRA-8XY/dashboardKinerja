@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard Kinerja<?php echo e(isset($title) ? ' - ' . $title : ''); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="<?php echo e(asset('favicon-new.svg')); ?>">
     <link rel="icon" type="image/png" href="<?php echo e(asset('favicon-new.png')); ?>">
@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="<?php echo e(asset('favicon-new.png')); ?>">
     <link rel="manifest" href="<?php echo e(asset('site-new.webmanifest')); ?>">
     <meta name="theme-color" content="#0e7490">
-    
+
     <!-- Google Fonts & Tailwind CSS CDN -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
@@ -31,12 +31,12 @@
         body { font-family: 'Manrope', sans-serif; }
         /* Fade-up animation */
         @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
+            from {
+                opacity: 0;
                 transform: translateY(20px);
             }
-            to { 
-                opacity: 1; 
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
         }
@@ -99,11 +99,11 @@
         }
 
         @keyframes fadeInUp {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-            to { 
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
@@ -155,12 +155,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
                             </svg>
                             <span>Indikator Saya</span>
-                        </a>
-                        <a href="<?php echo e(route('pegawai.riwayat-kinerja.index')); ?>" class="flex items-center gap-3 px-4 py-2 whitespace-nowrap rounded transition-colors duration-150 <?php echo e(request()->routeIs('pegawai.riwayat-kinerja.*') ? 'bg-cyan-50 text-cyan-700 font-semibold' : 'hover:bg-gray-100 text-gray-700'); ?>">
-                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>Riwayat Kinerja</span>
                         </a>
                     <?php endif; ?>
                 </nav>

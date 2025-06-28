@@ -12,9 +12,4 @@ class Pegawai extends Model
     {
         return $this->hasMany(Indikator::class);
     }
-
-    public function riwayats()
-    {
-        return $this->hasMany(RiwayatKinerja::class);
-    }
 }
