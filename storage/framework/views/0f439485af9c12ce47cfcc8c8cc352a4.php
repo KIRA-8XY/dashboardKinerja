@@ -16,9 +16,13 @@
     $total_achievement_percentage = $active_indikators->sum(fn($i) => ($i->realisasi / $i->target) * 100);
     $average_achievement_percentage = count($active_indikators) > 0 ? $total_achievement_percentage / count($active_indikators) : 0;
 
-    $green_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-success')->count();
-    $yellow_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-warning')->count();
-    $red_kpis = $indikators->filter(fn($i) => $i->kpi_score['warna'] == 'bg-danger')->count();
+    // Calculate total score on the fly
+    $total_score = $indikators->sum(function($i) {
+        if ($i->target > 0) {
+            return ($i->realisasi / $i->target) * $i->max_score;
+        }
+        return 0;
+    });
 
     $max_possible_score = $indikators->sum('max_score');
     $overall_performance_percentage = $max_possible_score > 0 ? ($total_score / $max_possible_score) * 100 : 0;

@@ -35,7 +35,10 @@ class IndikatorController extends Controller
             $query->where('pegawai_id', '!=', 99);
         }
 
-                // Sorting / ordering based on mode
+        // Prioritize indicators needing attention
+        $query->orderByRaw('(target <= 0 OR max_score <= 0) DESC');
+
+        // Sorting / ordering based on mode
         switch ($mode) {
             case 'pegawai':
                 $query->orderBy('pegawai_id');
@@ -56,7 +59,7 @@ class IndikatorController extends Controller
                 $query->orderBy('realisasi');
                 break;
             default:
-                // keep default order
+                $query->orderBy('pegawai_id')->orderBy('nama_indikator');
                 break;
         }
 

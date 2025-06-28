@@ -106,6 +106,7 @@
                         </tr>
                         @foreach($rows as $indikator)
                             @php
+                                $needsAttention = $indikator->target <= 0 || $indikator->max_score <= 0;
                                 $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
                                 $score = round(($percentage / 100) * $indikator->max_score, 2);
 
@@ -117,7 +118,7 @@
                                     $color = 'bg-red-100 text-red-800';
                                 }
                             @endphp
-                            <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200">
+                            <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200 @if($needsAttention) bg-orange-50 @endif">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -133,7 +134,12 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ number_format($indikator->target) }}
+                                    @if($needsAttention)
+                                        <span class="block text-xs text-orange-600 italic mt-1">Perlu penetapan Target & Max Score</span>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $color }}">
@@ -178,6 +184,7 @@
                 @else
                     @foreach($indikators as $i => $indikator)
                         @php
+                            $needsAttention = $indikator->target <= 0 || $indikator->max_score <= 0;
                             $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
                             $score = round(($percentage / 100) * $indikator->max_score, 2);
 
@@ -192,7 +199,7 @@
                                 $icon = '🟥';
                             }
                         @endphp
-                        <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200">
+                        <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200 @if($needsAttention) bg-orange-50 @endif">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $indikators->firstItem() + $i }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $indikator->nama_indikator }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -208,7 +215,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->target) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ number_format($indikator->target) }}
+                                @if($needsAttention)
+                                    <span class="block text-xs text-orange-600 italic mt-1">Perlu penetapan Target & Max Score</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($indikator->realisasi) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $color }}">

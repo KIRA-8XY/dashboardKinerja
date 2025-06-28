@@ -103,6 +103,7 @@
                         </tr>
                         <?php $__currentLoopData = $rows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $indikator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php
+                                $needsAttention = $indikator->target <= 0 || $indikator->max_score <= 0;
                                 $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
                                 $score = round(($percentage / 100) * $indikator->max_score, 2);
 
@@ -114,7 +115,7 @@
                                     $color = 'bg-red-100 text-red-800';
                                 }
                             ?>
-                            <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200">
+                            <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200 <?php if($needsAttention): ?> bg-orange-50 <?php endif; ?>">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo e($loop->parent->iteration); ?>.<?php echo e($loop->iteration); ?></td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo e($indikator->nama_indikator); ?></td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -130,7 +131,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo e(number_format($indikator->target)); ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <?php echo e(number_format($indikator->target)); ?>
+
+                                    <?php if($needsAttention): ?>
+                                        <span class="block text-xs text-orange-600 italic mt-1">Perlu penetapan Target & Max Score</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo e(number_format($indikator->realisasi)); ?></td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <?php echo e($color); ?>">
@@ -176,6 +183,7 @@
                 <?php else: ?>
                     <?php $__currentLoopData = $indikators; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $indikator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php
+                            $needsAttention = $indikator->target <= 0 || $indikator->max_score <= 0;
                             $percentage = $indikator->target > 0 ? ($indikator->realisasi / $indikator->target) * 100 : 0;
                             $score = round(($percentage / 100) * $indikator->max_score, 2);
 
@@ -190,7 +198,7 @@
                                 $icon = '🟥';
                             }
                         ?>
-                        <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200">
+                        <tr x-data="{ open: false }" class="hover:bg-gray-50 transition-colors duration-200 <?php if($needsAttention): ?> bg-orange-50 <?php endif; ?>">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo e($indikators->firstItem() + $i); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo e($indikator->nama_indikator); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -206,7 +214,13 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo e(number_format($indikator->target)); ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <?php echo e(number_format($indikator->target)); ?>
+
+                                <?php if($needsAttention): ?>
+                                    <span class="block text-xs text-orange-600 italic mt-1">Perlu penetapan Target & Max Score</span>
+                                <?php endif; ?>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo e(number_format($indikator->realisasi)); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <?php echo e($color); ?>">
